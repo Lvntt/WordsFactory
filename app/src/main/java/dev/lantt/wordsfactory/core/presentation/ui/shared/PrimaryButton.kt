@@ -9,12 +9,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import dev.lantt.wordsfactory.core.ui.theme.ButtonMedium
-import dev.lantt.wordsfactory.core.ui.theme.CornerRadiusMedium
-import dev.lantt.wordsfactory.core.ui.theme.InkWhite
-import dev.lantt.wordsfactory.core.ui.theme.PaddingLarge
-import dev.lantt.wordsfactory.core.ui.theme.PaddingMedium
-import dev.lantt.wordsfactory.core.ui.theme.PrimaryColor
+import dev.lantt.wordsfactory.core.presentation.ui.theme.ButtonMedium
+import dev.lantt.wordsfactory.core.presentation.ui.theme.CornerRadiusMedium
+import dev.lantt.wordsfactory.core.presentation.ui.theme.InkWhite
+import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingLarge
+import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
+import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
 
 @Composable
 fun PrimaryButton(

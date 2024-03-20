@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.core.ui.theme
+package dev.lantt.wordsfactory.core.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

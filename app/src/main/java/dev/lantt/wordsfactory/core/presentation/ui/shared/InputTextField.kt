@@ -15,11 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import dev.lantt.wordsfactory.R
-import dev.lantt.wordsfactory.core.ui.theme.CornerRadiusMedium
-import dev.lantt.wordsfactory.core.ui.theme.InkDarkGray
-import dev.lantt.wordsfactory.core.ui.theme.InkGray
-import dev.lantt.wordsfactory.core.ui.theme.InkWhite
-import dev.lantt.wordsfactory.core.ui.theme.ParagraphMedium
+import dev.lantt.wordsfactory.core.presentation.ui.theme.CornerRadiusMedium
+import dev.lantt.wordsfactory.core.presentation.ui.theme.InkDarkGray
+import dev.lantt.wordsfactory.core.presentation.ui.theme.InkGray
+import dev.lantt.wordsfactory.core.presentation.ui.theme.InkWhite
+import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
 
 @Composable
 fun InputTextField(

@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.core.ui.theme
+package dev.lantt.wordsfactory.core.presentation.ui.theme
 
 import androidx.compose.ui.unit.dp
 
