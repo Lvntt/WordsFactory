@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.core
+package dev.lantt.wordsfactory.core.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.core.ui.shared
+package dev.lantt.wordsfactory.core.presentation.ui.shared
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
