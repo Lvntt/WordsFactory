@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.ui.shared
+package dev.lantt.wordsfactory.core.ui.shared
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,12 +22,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import dev.lantt.wordsfactory.R
-import dev.lantt.wordsfactory.ui.theme.CornerRadiusMedium
-import dev.lantt.wordsfactory.ui.theme.InkDark
-import dev.lantt.wordsfactory.ui.theme.InkDarkGray
-import dev.lantt.wordsfactory.ui.theme.InkGray
-import dev.lantt.wordsfactory.ui.theme.InkWhite
-import dev.lantt.wordsfactory.ui.theme.ParagraphMedium
+import dev.lantt.wordsfactory.core.ui.theme.CornerRadiusMedium
+import dev.lantt.wordsfactory.core.ui.theme.InkDark
+import dev.lantt.wordsfactory.core.ui.theme.InkDarkGray
+import dev.lantt.wordsfactory.core.ui.theme.InkGray
+import dev.lantt.wordsfactory.core.ui.theme.InkWhite
+import dev.lantt.wordsfactory.core.ui.theme.ParagraphMedium
 
 @Composable
 fun InputTextFieldWithAction(

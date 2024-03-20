@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.ui.theme
+package dev.lantt.wordsfactory.core.ui.theme
 
 import android.app.Activity
 import android.os.Build
