@@ -2,6 +2,15 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="InputTextFieldPreview">
+        <State />
+      </entry>
+      <entry key="InputTextFieldWithActionPreview">
+        <State />
+      </entry>
+      <entry key="PrimaryButtonPreview">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>

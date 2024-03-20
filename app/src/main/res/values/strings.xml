@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">WordsFactory</string>
+    <string name="appName">WordsFactory</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="changePasswordVisibility">Change password visibility</string>
 </resources>
