@@ -1,6 +1,16 @@
 <resources>
     <string name="appName">WordsFactory</string>
+
     <string name="name">Name</string>
     <string name="password">Password</string>
     <string name="changePasswordVisibility">Change password visibility</string>
+
+    // Onboarding
+    <string name="onboardingFirstTitle">Learn anytime\nand anywhere</string>
+    <string name="onboardingSecondTitle">Find a course\nfor you</string>
+    <string name="onboardingThirdTitle">Improve your skills</string>
+    <string name="onboardingBody">Quarantine is the perfect time to spend your day learning something new, from anywhere!</string>
+
+    <string name="skip">Skip</string>
+
 </resources>
