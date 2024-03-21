@@ -4,14 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import dev.lantt.wordsfactory.auth.presentation.screen.AuthScreen
+import dev.lantt.wordsfactory.auth.presentation.screen.LoginScreen
+import dev.lantt.wordsfactory.auth.presentation.screen.RegistrationScreen
 import dev.lantt.wordsfactory.onboarding.presentation.screen.OnboardingScreen
 import dev.lantt.wordsfactory.splash.presentation.SplashScreen
 
 object WordsFactoryDestinations {
     const val SPLASH = "splash"
     const val ONBOARDING = "onboarding"
-    const val AUTH = "auth"
+    const val REGISTRATION = "registration"
+    const val LOGIN = "login"
 }
 
 @Composable
@@ -27,8 +29,8 @@ fun RootNavigation(
                 onNavigateToOnboarding = {
                     navController.navigate(WordsFactoryDestinations.ONBOARDING)
                 },
-                onNavigateToAuth = {
-                    navController.navigate(WordsFactoryDestinations.AUTH)
+                onNavigateToRegistration = {
+                    navController.navigate(WordsFactoryDestinations.REGISTRATION)
                 },
                 onNavigateToDictionary = {}
             )
@@ -36,14 +38,26 @@ fun RootNavigation(
         
         composable(WordsFactoryDestinations.ONBOARDING) {
             OnboardingScreen(
-                onNavigateToAuth = {
-                    navController.navigate(WordsFactoryDestinations.AUTH)
+                onNavigateToRegistration = {
+                    navController.navigate(WordsFactoryDestinations.REGISTRATION)
                 }
             )
         }
 
-        composable(WordsFactoryDestinations.AUTH) {
-            AuthScreen()
+        composable(WordsFactoryDestinations.REGISTRATION) {
+            RegistrationScreen(
+                onNavigateToLogin = {
+                    navController.navigate(WordsFactoryDestinations.LOGIN)
+                }
+            )
+        }
+
+        composable(WordsFactoryDestinations.LOGIN) {
+            LoginScreen(
+                onNavigateToRegistration = {
+                    navController.navigate(WordsFactoryDestinations.REGISTRATION)
+                }
+            )
         }
     }
 }

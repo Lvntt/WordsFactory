@@ -1,7 +1,9 @@
 package dev.lantt.wordsfactory.auth.presentation.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -14,16 +16,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import dev.lantt.wordsfactory.R
-import dev.lantt.wordsfactory.auth.presentation.components.AuthForm
+import dev.lantt.wordsfactory.auth.presentation.components.RegistrationForm
 import dev.lantt.wordsfactory.core.presentation.ui.shared.PrimaryButton
 import dev.lantt.wordsfactory.core.presentation.ui.theme.HeadingH4
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingRegular
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
+import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingTiny
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
+import dev.lantt.wordsfactory.core.presentation.ui.theme.SecondaryColor
+import dev.lantt.wordsfactory.core.presentation.util.noRippleClickable
 
 @Composable
-fun AuthScreen(
+fun RegistrationScreen(
+    onNavigateToLogin: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -55,20 +61,41 @@ fun AuthScreen(
 
         Spacer(modifier = Modifier.height(PaddingMedium))
 
-        AuthForm()
+        RegistrationForm()
 
         Spacer(modifier = Modifier.weight(1.5f))
 
         PrimaryButton(
-            modifier = Modifier.padding(top = PaddingMedium, bottom = PaddingRegular),
+            modifier = Modifier.padding(vertical = PaddingMedium),
             onClick = { /*TODO*/ },
             text = stringResource(id = R.string.signUp)
         )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(PaddingTiny)
+        ) {
+            Text(
+                modifier = Modifier.padding(bottom = PaddingRegular),
+                text = stringResource(id = R.string.alreadyHaveAnAccount),
+                style = ParagraphMedium
+            )
+
+            Text(
+                modifier = Modifier
+                    .padding(bottom = PaddingRegular)
+                    .noRippleClickable {
+                        onNavigateToLogin()
+                    },
+                text = stringResource(id = R.string.signIn),
+                style = ParagraphMedium,
+                color = SecondaryColor
+            )
+        }
     }
 }
 
 @Preview
 @Composable
-private fun AuthScreenPreview() {
-    AuthScreen()
+private fun RegistrationScreenPreview() {
+    RegistrationScreen({})
 }

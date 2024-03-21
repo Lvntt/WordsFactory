@@ -31,7 +31,7 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen(
-    onNavigateToAuth: () -> Unit,
+    onNavigateToRegistration: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: OnboardingViewModel = koinViewModel(),
 ) {
@@ -52,7 +52,7 @@ fun OnboardingScreen(
                     end = PaddingMedium
                 )
                 .clickable {
-                    onNavigateToAuth()
+                    onNavigateToRegistration()
                 },
             text = stringResource(id = R.string.skip),
             style = ButtonSmall,
@@ -82,7 +82,7 @@ fun OnboardingScreen(
             modifier = Modifier.padding(PaddingRegular),
             onClick = {
                 if (pagerState.currentPage == pageCount - 1) {
-                    onNavigateToAuth()
+                    onNavigateToRegistration()
                 } else {
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)

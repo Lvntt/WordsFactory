@@ -3,6 +3,7 @@ package dev.lantt.wordsfactory.auth.presentation.screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,9 +20,14 @@ import dev.lantt.wordsfactory.core.presentation.ui.shared.PrimaryButton
 import dev.lantt.wordsfactory.core.presentation.ui.theme.HeadingH4
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingRegular
+import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingTiny
+import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
+import dev.lantt.wordsfactory.core.presentation.ui.theme.SecondaryColor
+import dev.lantt.wordsfactory.core.presentation.util.noRippleClickable
 
 @Composable
 fun LoginScreen(
+    onNavigateToRegistration: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -48,15 +54,35 @@ fun LoginScreen(
         Spacer(modifier = Modifier.weight(1.5f))
 
         PrimaryButton(
-            modifier = Modifier.padding(top = PaddingMedium, bottom = PaddingRegular),
             onClick = { /*TODO*/ },
             text = stringResource(id = R.string.signIn)
         )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(PaddingTiny)
+        ) {
+            Text(
+                modifier = Modifier.padding(bottom = PaddingRegular),
+                text = stringResource(id = R.string.noAccount),
+                style = ParagraphMedium
+            )
+
+            Text(
+                modifier = Modifier
+                    .padding(bottom = PaddingRegular)
+                    .noRippleClickable {
+                        onNavigateToRegistration()
+                    },
+                text = stringResource(id = R.string.signUp),
+                style = ParagraphMedium,
+                color = SecondaryColor
+            )
+        }
     }
 }
 
 @Preview
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen({})
 }

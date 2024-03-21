@@ -13,7 +13,7 @@ import dev.lantt.wordsfactory.core.presentation.ui.shared.InputTextFieldWithActi
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 
 @Composable
-fun AuthForm(
+fun RegistrationForm(
     modifier: Modifier = Modifier
 ) {
     Column(

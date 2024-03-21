@@ -8,6 +8,9 @@
       <entry key="LoginScreenPreview">
         <State />
       </entry>
+      <entry key="RegistrationScreenPreview">
+        <State />
+      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
