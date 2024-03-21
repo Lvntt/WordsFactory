@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.auth.presentation
+package dev.lantt.wordsfactory.auth.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,19 +13,13 @@ import dev.lantt.wordsfactory.core.presentation.ui.shared.InputTextFieldWithActi
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 
 @Composable
-fun AuthForm(
+fun LoginForm(
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(PaddingMedium)
     ) {
-        InputTextField(
-            value = "",
-            onValueChange = {},
-            placeholder = stringResource(id = R.string.name)
-        )
-
         InputTextField(
             value = "",
             onValueChange = {},

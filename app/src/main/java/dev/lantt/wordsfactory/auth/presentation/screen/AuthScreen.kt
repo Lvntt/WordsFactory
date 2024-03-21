@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.auth.presentation
+package dev.lantt.wordsfactory.auth.presentation.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -14,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import dev.lantt.wordsfactory.R
+import dev.lantt.wordsfactory.auth.presentation.components.AuthForm
 import dev.lantt.wordsfactory.core.presentation.ui.shared.PrimaryButton
 import dev.lantt.wordsfactory.core.presentation.ui.theme.HeadingH4
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium

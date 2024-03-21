@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import dev.lantt.wordsfactory.auth.presentation.AuthScreen
+import dev.lantt.wordsfactory.auth.presentation.screen.AuthScreen
 import dev.lantt.wordsfactory.onboarding.presentation.screen.OnboardingScreen
 import dev.lantt.wordsfactory.splash.presentation.SplashScreen
 
