@@ -22,3 +22,7 @@ val SecondaryColor = Color(0xFF65AAEA)
 val SuccessColor = Color(0xFF5BA092)
 val ErrorColor = Color(0xFFEF4949)
 val WarningColor = Color(0xFFF2A03F)
+
+// Additional colors
+val PagerIndicatorDotInactive = Color(0xFFD5D4D4)
+val PagerIndicatorDotActive = SecondaryColor

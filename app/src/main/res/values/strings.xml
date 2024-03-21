@@ -12,5 +12,7 @@
     <string name="onboardingBody">Quarantine is the perfect time to spend your day learning something new, from anywhere!</string>
 
     <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="letsStart">Let\'s Start</string>
 
 </resources>

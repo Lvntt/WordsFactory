@@ -10,3 +10,6 @@ val PaddingRegular = 24.dp
 val PaddingLarge = 32.dp
 
 val Padding5 = 5.dp
+
+val PagerIndicatorSize = 6.dp
+val PagerLongIndicatorSize = 16.dp
