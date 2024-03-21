@@ -26,12 +26,14 @@ import dev.lantt.wordsfactory.onboarding.presentation.viewmodel.OnboardingViewMo
 import dev.lantt.wordsfactory.onboarding.presentation.components.OnboardingPagerContent
 import dev.lantt.wordsfactory.onboarding.presentation.components.OnboardingPagerIndicator
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen(
+    onNavigateToAuth: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: OnboardingViewModel,
+    viewModel: OnboardingViewModel = koinViewModel(),
 ) {
     val pageItems = viewModel.onboardingItems
     val pageCount = pageItems.size
@@ -50,7 +52,7 @@ fun OnboardingScreen(
                     end = PaddingMedium
                 )
                 .clickable {
-                    // TODO navigate to sign up
+                    onNavigateToAuth()
                 },
             text = stringResource(id = R.string.skip),
             style = ButtonSmall,
@@ -80,7 +82,7 @@ fun OnboardingScreen(
             modifier = Modifier.padding(PaddingRegular),
             onClick = {
                 if (pagerState.currentPage == pageCount - 1) {
-                    // TODO navigate to sign up
+                    onNavigateToAuth()
                 } else {
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
