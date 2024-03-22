@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -54,11 +55,14 @@ dependencies {
     val navigationVersion = "2.5.3"
     val koinVersion = "3.3.2"
     val koinComposeVersion = "3.4.1"
+    val firebaseBomVersion = "32.7.4"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val koinCore = "io.insert-koin:koin-core:$koinVersion"
     val koinAndroid = "io.insert-koin:koin-android:$koinVersion"
     val koinAndroidCompose = "io.insert-koin:koin-androidx-compose:$koinComposeVersion"
+    val firebaseBom = "com.google.firebase:firebase-bom:$firebaseBomVersion"
+    val firebaseAnalytics = "com.google.firebase:firebase-analytics"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -73,6 +77,8 @@ dependencies {
     implementation(koinCore)
     implementation(koinAndroid)
     implementation(koinAndroidCompose)
+    implementation(platform(firebaseBom))
+    implementation(firebaseAnalytics)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
