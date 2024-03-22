@@ -24,4 +24,9 @@
     <string name="signIn">Sign in</string>
     <string name="noAccount">No account?</string>
 
+    // Bottom navigation
+    <string name="dictionary">Dictionary</string>
+    <string name="training">Training</string>
+    <string name="video">Video</string>
+
 </resources>

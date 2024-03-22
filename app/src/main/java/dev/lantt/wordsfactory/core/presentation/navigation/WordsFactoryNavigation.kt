@@ -16,6 +16,8 @@ object WordsFactoryDestinations {
     const val REGISTRATION = "registration"
     const val LOGIN = "login"
     const val DICTIONARY = "dictionary"
+    const val TRAINING = "training"
+    const val VIDEO = "video"
 }
 
 @Composable
