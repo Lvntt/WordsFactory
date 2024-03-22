@@ -56,13 +56,15 @@ dependencies {
     val koinVersion = "3.3.2"
     val koinComposeVersion = "3.4.1"
     val firebaseBomVersion = "32.7.4"
+    val lifecycleComposeVersion = "2.6.0-rc01"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val koinCore = "io.insert-koin:koin-core:$koinVersion"
     val koinAndroid = "io.insert-koin:koin-android:$koinVersion"
     val koinAndroidCompose = "io.insert-koin:koin-androidx-compose:$koinComposeVersion"
     val firebaseBom = "com.google.firebase:firebase-bom:$firebaseBomVersion"
-    val firebaseAnalytics = "com.google.firebase:firebase-analytics"
+    val firebaseAuth = "com.google.firebase:firebase-auth"
+    val lifecycleCompose = "androidx.lifecycle:lifecycle-runtime-compose:$lifecycleComposeVersion"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -78,7 +80,8 @@ dependencies {
     implementation(koinAndroid)
     implementation(koinAndroidCompose)
     implementation(platform(firebaseBom))
-    implementation(firebaseAnalytics)
+    implementation(firebaseAuth)
+    implementation(lifecycleCompose)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

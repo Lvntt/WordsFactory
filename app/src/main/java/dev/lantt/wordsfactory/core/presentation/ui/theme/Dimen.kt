@@ -14,3 +14,5 @@ val Padding5 = 5.dp
 
 val PagerIndicatorSize = 6.dp
 val PagerLongIndicatorSize = 16.dp
+
+val ButtonHeightRegular = 56.dp

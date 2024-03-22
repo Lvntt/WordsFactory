@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.auth.presentation.screen
+ package dev.lantt.wordsfactory.auth.presentation.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -10,13 +10,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.lantt.wordsfactory.R
 import dev.lantt.wordsfactory.auth.presentation.components.RegistrationForm
+import dev.lantt.wordsfactory.auth.presentation.event.RegistrationUiState
+import dev.lantt.wordsfactory.auth.presentation.viewmodel.RegistrationViewModel
+import dev.lantt.wordsfactory.core.presentation.ui.shared.LoadingPrimaryButton
 import dev.lantt.wordsfactory.core.presentation.ui.shared.PrimaryButton
 import dev.lantt.wordsfactory.core.presentation.ui.theme.HeadingH4
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
@@ -26,16 +32,33 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingTiny
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.SecondaryColor
 import dev.lantt.wordsfactory.core.presentation.util.noRippleClickable
+import org.koin.androidx.compose.koinViewModel
 
-@Composable
+ @Composable
 fun RegistrationScreen(
     onNavigateToLogin: () -> Unit,
-    modifier: Modifier = Modifier
+    onNavigateToDictionary: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: RegistrationViewModel = koinViewModel()
 ) {
+    val focusManager = LocalFocusManager.current
+    val uiState by viewModel.registrationUiState.collectAsStateWithLifecycle()
+
+    when (uiState) {
+        RegistrationUiState.Initial -> Unit
+        RegistrationUiState.Loading -> Unit
+        RegistrationUiState.Success -> {
+            onNavigateToDictionary()
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = PaddingMedium),
+            .padding(horizontal = PaddingMedium)
+            .noRippleClickable {
+                focusManager.clearFocus()
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.weight(1f))
@@ -61,15 +84,21 @@ fun RegistrationScreen(
 
         Spacer(modifier = Modifier.height(PaddingMedium))
 
-        RegistrationForm()
+        RegistrationForm(viewModel = viewModel)
 
         Spacer(modifier = Modifier.weight(1.5f))
 
-        PrimaryButton(
-            modifier = Modifier.padding(vertical = PaddingMedium),
-            onClick = { /*TODO*/ },
-            text = stringResource(id = R.string.signUp)
-        )
+        if (uiState is RegistrationUiState.Loading) {
+            LoadingPrimaryButton(
+                modifier = Modifier.padding(vertical = PaddingMedium)
+            )
+        } else {
+            PrimaryButton(
+                modifier = Modifier.padding(vertical = PaddingMedium),
+                onClick = viewModel::onRegister,
+                text = stringResource(id = R.string.signUp)
+            )
+        }
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(PaddingTiny)
@@ -97,5 +126,5 @@ fun RegistrationScreen(
 @Preview
 @Composable
 private fun RegistrationScreenPreview() {
-    RegistrationScreen({})
+    RegistrationScreen({}, {})
 }

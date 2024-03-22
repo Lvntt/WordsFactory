@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dev.lantt.wordsfactory.auth.presentation.screen.LoginScreen
 import dev.lantt.wordsfactory.auth.presentation.screen.RegistrationScreen
+import dev.lantt.wordsfactory.dictionary.presentation.DictionaryScreen
 import dev.lantt.wordsfactory.onboarding.presentation.screen.OnboardingScreen
 import dev.lantt.wordsfactory.splash.presentation.SplashScreen
 
@@ -14,6 +15,7 @@ object WordsFactoryDestinations {
     const val ONBOARDING = "onboarding"
     const val REGISTRATION = "registration"
     const val LOGIN = "login"
+    const val DICTIONARY = "dictionary"
 }
 
 @Composable
@@ -48,6 +50,9 @@ fun RootNavigation(
             RegistrationScreen(
                 onNavigateToLogin = {
                     navController.navigate(WordsFactoryDestinations.LOGIN)
+                },
+                onNavigateToDictionary = {
+                    navController.navigate(WordsFactoryDestinations.DICTIONARY)
                 }
             )
         }
@@ -58,6 +63,10 @@ fun RootNavigation(
                     navController.navigate(WordsFactoryDestinations.REGISTRATION)
                 }
             )
+        }
+
+        composable(WordsFactoryDestinations.DICTIONARY) {
+            DictionaryScreen()
         }
     }
 }
