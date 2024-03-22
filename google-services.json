@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "468793738576",
+    "project_id": "wordsfactory-55583",
+    "storage_bucket": "wordsfactory-55583.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468793738576:android:6d398461e1d3bbc1c75855",
+        "android_client_info": {
+          "package_name": "dev.lantt.wordsfactory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_0sNj9r2-0mW72axEWkh6qely8QETip0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
