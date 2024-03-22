@@ -47,6 +47,12 @@ class RegistrationViewModel(
         }
     }
 
+    fun onPasswordVisibilityChange() {
+        _registrationState.update {
+            it.copy(isPasswordVisible = !it.isPasswordVisible)
+        }
+    }
+
     fun onRegister() {
         _registrationUiState.update { RegistrationUiState.Loading }
         viewModelScope.launch(defaultDispatcher) {
