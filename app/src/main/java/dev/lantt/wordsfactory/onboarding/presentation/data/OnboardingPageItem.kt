@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.onboarding.presentation
+package dev.lantt.wordsfactory.onboarding.presentation.data
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

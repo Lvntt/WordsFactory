@@ -6,11 +6,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 
-fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = this.then(
-    composed {
-        clickable(indication = null,
-            interactionSource = remember { MutableInteractionSource() }) {
-            onClick()
-        }
+fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = this.composed {
+    clickable(indication = null,
+        interactionSource = remember { MutableInteractionSource() }) {
+        onClick()
     }
-)
+}
