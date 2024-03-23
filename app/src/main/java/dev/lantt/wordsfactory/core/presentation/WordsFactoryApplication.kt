@@ -3,6 +3,7 @@ package dev.lantt.wordsfactory.core.presentation
 import android.app.Application
 import dev.lantt.wordsfactory.di.provideDataModule
 import dev.lantt.wordsfactory.di.provideDomainModule
+import dev.lantt.wordsfactory.di.provideNetworkModule
 import dev.lantt.wordsfactory.di.providePresentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -15,7 +16,8 @@ class WordsFactoryApplication : Application() {
             modules(
                 providePresentationModule(),
                 provideDomainModule(),
-                provideDataModule()
+                provideDataModule(),
+                provideNetworkModule(),
             )
         }
     }

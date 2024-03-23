@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.dictionary.presentation
+package dev.lantt.wordsfactory.dictionary.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

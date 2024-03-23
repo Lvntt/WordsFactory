@@ -57,6 +57,10 @@ dependencies {
     val koinComposeVersion = "3.4.1"
     val firebaseBomVersion = "32.7.4"
     val lifecycleComposeVersion = "2.6.0-rc01"
+    val retrofitVersion = "2.9.0"
+    val loggingInterceptorVersion = "4.11.0"
+    val gsonVersion = "2.10.1"
+    val gsonConverterVersion = "2.9.0"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val koinCore = "io.insert-koin:koin-core:$koinVersion"
@@ -65,6 +69,10 @@ dependencies {
     val firebaseBom = "com.google.firebase:firebase-bom:$firebaseBomVersion"
     val firebaseAuth = "com.google.firebase:firebase-auth"
     val lifecycleCompose = "androidx.lifecycle:lifecycle-runtime-compose:$lifecycleComposeVersion"
+    val retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
+    val gson = "com.google.code.gson:gson:$gsonVersion"
+    val gsonConverter = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -82,6 +90,10 @@ dependencies {
     implementation(platform(firebaseBom))
     implementation(firebaseAuth)
     implementation(lifecycleCompose)
+    implementation(retrofit)
+    implementation(loggingInterceptor)
+    implementation(gson)
+    implementation(gsonConverter)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
