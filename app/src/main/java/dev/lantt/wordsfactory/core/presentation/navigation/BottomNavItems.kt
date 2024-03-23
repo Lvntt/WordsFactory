@@ -7,7 +7,8 @@ object BottomNavItems {
         BottomNavItem(
             labelId = R.string.dictionary,
             iconId = R.drawable.ic_dictionary,
-            route = WordsFactoryDestinations.DICTIONARY
+            route = WordsFactoryDestinations.DICTIONARY,
+            isAccent = true
         ),
         BottomNavItem(
             labelId = R.string.training,

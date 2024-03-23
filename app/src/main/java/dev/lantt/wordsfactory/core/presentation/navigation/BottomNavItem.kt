@@ -8,5 +8,6 @@ data class BottomNavItem(
     val labelId: Int,
     @DrawableRes
     val iconId: Int,
-    val route: String
+    val route: String,
+    val isAccent: Boolean = false
 )

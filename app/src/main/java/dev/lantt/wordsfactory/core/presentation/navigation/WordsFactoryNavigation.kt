@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dev.lantt.wordsfactory.auth.presentation.screen.LoginScreen
 import dev.lantt.wordsfactory.auth.presentation.screen.RegistrationScreen
-import dev.lantt.wordsfactory.dictionary.presentation.DictionaryScreen
 import dev.lantt.wordsfactory.onboarding.presentation.screen.OnboardingScreen
 import dev.lantt.wordsfactory.splash.presentation.SplashScreen
 
@@ -22,11 +21,12 @@ object WordsFactoryDestinations {
 
 @Composable
 fun RootNavigation(
-    navController: NavHostController
+    navController: NavHostController,
+    onCloseApp: () -> Unit,
 ) {
     NavHost(
         navController = navController,
-        startDestination = WordsFactoryDestinations.SPLASH
+        startDestination = WordsFactoryDestinations.DICTIONARY
     ) {
         composable(WordsFactoryDestinations.SPLASH) {
             SplashScreen(
@@ -68,7 +68,9 @@ fun RootNavigation(
         }
 
         composable(WordsFactoryDestinations.DICTIONARY) {
-            DictionaryScreen()
+            BottomNavigationWrapper(
+                onCloseApp = onCloseApp
+            )
         }
     }
 }
