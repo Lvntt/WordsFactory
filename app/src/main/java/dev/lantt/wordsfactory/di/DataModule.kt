@@ -5,8 +5,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dev.lantt.wordsfactory.auth.data.FirebaseAuthRepository
 import dev.lantt.wordsfactory.auth.domain.repository.AuthRepository
+import dev.lantt.wordsfactory.dictionary.data.audio.AudioRepositoryImpl
 import dev.lantt.wordsfactory.dictionary.data.network.DictionaryApiService
 import dev.lantt.wordsfactory.dictionary.data.repository.DictionaryRepositoryImpl
+import dev.lantt.wordsfactory.dictionary.domain.repository.AudioRepository
 import dev.lantt.wordsfactory.dictionary.domain.repository.DictionaryRepository
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -21,6 +23,9 @@ private fun provideDictionaryRepository(
 ): DictionaryRepository =
     DictionaryRepositoryImpl(dictionaryApiService)
 
+private fun provideAudioRepository(): AudioRepository =
+    AudioRepositoryImpl()
+
 fun provideDataModule(): Module = module {
 
     single { provideFirebaseAuth() }
@@ -28,5 +33,7 @@ fun provideDataModule(): Module = module {
     single { provideAuthRepository(get()) }
 
     single { provideDictionaryRepository(get()) }
+
+    single { provideAudioRepository() }
 
 }

@@ -17,6 +17,6 @@ fun providePresentationModule(): Module = module {
 
     viewModel { RegistrationViewModel(get(), Dispatchers.IO) }
 
-    viewModel { DictionaryViewModel(get(), Dispatchers.IO) }
+    viewModel { DictionaryViewModel(get(), get(), get(), Dispatchers.IO) }
 
 }

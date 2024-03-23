@@ -28,10 +28,12 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
 import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
+import dev.lantt.wordsfactory.dictionary.presentation.viewmodel.DictionaryViewModel
 
 @Composable
 fun DictionaryWordContent(
     word: DictionaryWord,
+    viewModel: DictionaryViewModel,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -56,16 +58,19 @@ fun DictionaryWordContent(
                 color = PrimaryColor
             )
 
-            Icon(
-                modifier = Modifier
-                    .padding(top = PaddingSmall)
-                    .clickable {
-                        // TODO
-                    },
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_audio),
-                contentDescription = stringResource(id = R.string.listenPronunciation),
-                tint = PrimaryColor
-            )
+            val audio = word.phonetics[0].audio
+            audio?.let {
+                Icon(
+                    modifier = Modifier
+                        .padding(top = PaddingSmall)
+                        .clickable {
+                            viewModel.onPlayAudio(audio)
+                        },
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_audio),
+                    contentDescription = stringResource(id = R.string.listenPronunciation),
+                    tint = PrimaryColor
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(PaddingMedium))

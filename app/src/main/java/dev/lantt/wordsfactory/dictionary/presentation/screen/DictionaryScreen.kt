@@ -41,7 +41,7 @@ fun DictionaryScreen(
     viewModel: DictionaryViewModel = koinViewModel()
 ) {
     val focusManager = LocalFocusManager.current
-    val query by viewModel.query.collectAsStateWithLifecycle()
+    val dictionaryState by viewModel.dictionaryState.collectAsStateWithLifecycle()
     val uiState by viewModel.dictionaryUiState.collectAsStateWithLifecycle()
 
     Column(
@@ -58,7 +58,7 @@ fun DictionaryScreen(
                 start = PaddingMedium,
                 end = PaddingMedium
             ),
-            value = query,
+            value = dictionaryState.query,
             onValueChange = viewModel::onQueryChange,
             trailingIcon = ImageVector.vectorResource(id = R.drawable.ic_search),
             trailingIconDescription = stringResource(id = R.string.search),
@@ -94,7 +94,8 @@ fun DictionaryScreen(
             }
             is DictionaryUiState.Success -> {
                 DictionaryWordContent(
-                    word = (uiState as DictionaryUiState.Success).word
+                    word = (uiState as DictionaryUiState.Success).word,
+                    viewModel = viewModel
                 )
             }
         }

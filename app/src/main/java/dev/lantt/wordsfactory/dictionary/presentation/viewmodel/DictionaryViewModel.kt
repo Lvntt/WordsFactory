@@ -3,6 +3,9 @@ package dev.lantt.wordsfactory.dictionary.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordsUseCase
+import dev.lantt.wordsfactory.dictionary.domain.usecase.PlayAudioUseCase
+import dev.lantt.wordsfactory.dictionary.domain.usecase.StopAudioUseCase
+import dev.lantt.wordsfactory.dictionary.presentation.state.DictionaryState
 import dev.lantt.wordsfactory.dictionary.presentation.state.DictionaryUiState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -13,11 +16,13 @@ import kotlinx.coroutines.launch
 
 class DictionaryViewModel(
     private val getDictionaryWordsUseCase: GetDictionaryWordsUseCase,
+    private val playAudioUseCase: PlayAudioUseCase,
+    private val stopAudioUseCase: StopAudioUseCase,
     private val defaultDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _query = MutableStateFlow("")
-    val query = _query.asStateFlow()
+    private val _dictionaryState = MutableStateFlow(DictionaryState())
+    val dictionaryState = _dictionaryState.asStateFlow()
 
     private val _dictionaryUiState = MutableStateFlow<DictionaryUiState>(DictionaryUiState.Initial)
     val dictionaryUiState = _dictionaryUiState.asStateFlow()
@@ -27,7 +32,9 @@ class DictionaryViewModel(
     }
 
     fun onQueryChange(query: String) {
-        _query.update { query }
+        _dictionaryState.update {
+            it.copy(query = query)
+        }
     }
 
     fun onSearch() {
@@ -35,10 +42,20 @@ class DictionaryViewModel(
         viewModelScope.launch(defaultDispatcher + dictionaryExceptionHandler) {
             _dictionaryUiState.update {
                 DictionaryUiState.Success(
-                    getDictionaryWordsUseCase(_query.value)[0]
+                    getDictionaryWordsUseCase(_dictionaryState.value.query)[0]
                 )
             }
         }
+    }
+
+    fun onPlayAudio(audioUrl: String) {
+        viewModelScope.launch(defaultDispatcher + dictionaryExceptionHandler) {
+            playAudioUseCase(audioUrl)
+        }
+    }
+
+    fun onStopAudio() {
+        stopAudioUseCase()
     }
 
 }
