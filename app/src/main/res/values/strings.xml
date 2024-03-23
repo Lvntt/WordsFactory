@@ -29,4 +29,14 @@
     <string name="training">Training</string>
     <string name="video">Video</string>
 
+    // Dictionary
+    <string name="search">Search</string>
+    <string name="noWord">No word</string>
+    <string name="hint">Input something to find it in dictionary</string>
+    <string name="listenPronunciation">Listen pronunciation</string>
+    <string name="partOfSpeech">Part of Speech:</string>
+    <string name="meanings">Meanings:</string>
+    <string name="example">Example:</string>
+    <string name="addToDictionary">Add to Dictionary</string>
+
 </resources>

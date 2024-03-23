@@ -39,7 +39,11 @@ fun BottomNavigationBar(
     NavigationBar(
         modifier = modifier
             .clip(shape = bottomNavigationBarShape)
-            .border(width = 1.dp, color = InkGray, shape = bottomNavigationBarShape),
+            .border(
+                width = 1.dp,
+                color = InkGray,
+                shape = bottomNavigationBarShape
+            ),
         containerColor = InkWhite,
         contentColor = InkGray
     ) {

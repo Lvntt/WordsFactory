@@ -34,10 +34,10 @@ fun InputTextFieldWithAction(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
-    placeholder: String,
     trailingIcon: ImageVector,
     trailingIconDescription: String,
     onTrailingIconClick: () -> Unit,
+    placeholder: String = "",
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
