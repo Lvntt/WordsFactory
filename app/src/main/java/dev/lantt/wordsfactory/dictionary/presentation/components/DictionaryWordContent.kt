@@ -27,12 +27,12 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
-import dev.lantt.wordsfactory.dictionary.data.model.DictionaryWordDto
+import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
 import dev.lantt.wordsfactory.dictionary.presentation.viewmodel.DictionaryViewModel
 
 @Composable
 fun DictionaryWordContent(
-    word: DictionaryWordDto,
+    word: DictionaryWord,
     viewModel: DictionaryViewModel,
     modifier: Modifier = Modifier
 ) {
@@ -51,15 +51,16 @@ fun DictionaryWordContent(
                 color = Color.Black
             )
 
-            Text(
-                modifier = Modifier.padding(top = PaddingSmall),
-                text = "[${word.phonetic}]",
-                style = ParagraphMedium,
-                color = PrimaryColor
-            )
+            word.phonetic?.let { phonetic ->
+                Text(
+                    modifier = Modifier.padding(top = PaddingSmall),
+                    text = "[$phonetic]",
+                    style = ParagraphMedium,
+                    color = PrimaryColor
+                )
+            }
 
-            val audio = word.phonetics[0].audio
-            audio?.let {
+            word.phoneticAudio?.let { audio ->
                 Icon(
                     modifier = Modifier
                         .padding(top = PaddingSmall)
@@ -80,14 +81,14 @@ fun DictionaryWordContent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = stringResource(id = R.string.partOfSpeech),
+                text = stringResource(id = R.string.partsOfSpeech),
                 style = HeadingH4,
                 color = Color.Black
             )
 
             Text(
                 modifier = Modifier.padding(top = Padding5),
-                text = word.meanings[0].partOfSpeech,
+                text = word.partsOfSpeech.joinToString(", "),
                 style = ParagraphMedium,
                 color = Color.Black
             )

@@ -34,7 +34,7 @@
     <string name="noWord">No word</string>
     <string name="hint">Input something to find it in dictionary</string>
     <string name="listenPronunciation">Listen pronunciation</string>
-    <string name="partOfSpeech">Part of Speech:</string>
+    <string name="partsOfSpeech">Parts of Speech:</string>
     <string name="meanings">Meanings:</string>
     <string name="example">Example:</string>
     <string name="addToDictionary">Add to Dictionary</string>
