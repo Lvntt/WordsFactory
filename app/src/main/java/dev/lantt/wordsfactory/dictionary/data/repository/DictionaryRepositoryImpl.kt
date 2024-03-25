@@ -8,8 +8,11 @@ class DictionaryRepositoryImpl(
     private val dictionaryApiService: DictionaryApiService
 ) : DictionaryRepository {
 
-    override suspend fun getDictionaryWords(query: String): List<DictionaryWord> =
-        dictionaryApiService.getDictionaryWord(query)
+    override suspend fun getDictionaryWords(query: String): DictionaryWord {
+        val apiResult = dictionaryApiService.getDictionaryWord(query)
+        // return mapper.toDomain()
+        TODO()
+    }
 
     override suspend fun saveDictionaryWord(word: DictionaryWord) {
         TODO("Not yet implemented")

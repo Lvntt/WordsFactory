@@ -3,7 +3,7 @@ package dev.lantt.wordsfactory.dictionary.domain.entity
 data class DictionaryWord(
     val word: String,
     val phonetic: String,
-    val phonetics: List<Phonetic>,
-    val origin: String,
+    val phoneticAudio: String?,
+    val partsOfSpeech: List<String>,
     val meanings: List<Meaning>
 )

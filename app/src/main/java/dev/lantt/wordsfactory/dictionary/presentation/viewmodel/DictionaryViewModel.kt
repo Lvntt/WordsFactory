@@ -2,7 +2,7 @@ package dev.lantt.wordsfactory.dictionary.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordsUseCase
+import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.PlayAudioUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.StopAudioUseCase
 import dev.lantt.wordsfactory.dictionary.presentation.state.DictionaryState
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class DictionaryViewModel(
-    private val getDictionaryWordsUseCase: GetDictionaryWordsUseCase,
+    private val getDictionaryWordUseCase: GetDictionaryWordUseCase,
     private val playAudioUseCase: PlayAudioUseCase,
     private val stopAudioUseCase: StopAudioUseCase,
     private val defaultDispatcher: CoroutineDispatcher
@@ -42,7 +42,7 @@ class DictionaryViewModel(
         viewModelScope.launch(defaultDispatcher + dictionaryExceptionHandler) {
             _dictionaryUiState.update {
                 DictionaryUiState.Success(
-                    getDictionaryWordsUseCase(_dictionaryState.value.query)[0]
+                    getDictionaryWordUseCase(_dictionaryState.value.query)
                 )
             }
         }

@@ -3,11 +3,11 @@ package dev.lantt.wordsfactory.dictionary.domain.usecase
 import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
 import dev.lantt.wordsfactory.dictionary.domain.repository.DictionaryRepository
 
-class GetDictionaryWordsUseCase(
+class GetDictionaryWordUseCase(
     private val dictionaryRepository: DictionaryRepository
 ) {
 
-    suspend operator fun invoke(query: String): List<DictionaryWord>
+    suspend operator fun invoke(query: String): DictionaryWord
         = dictionaryRepository.getDictionaryWords(query)
 
 }

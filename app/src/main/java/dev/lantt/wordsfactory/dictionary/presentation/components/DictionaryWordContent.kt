@@ -27,12 +27,12 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
-import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
+import dev.lantt.wordsfactory.dictionary.data.model.DictionaryWordDto
 import dev.lantt.wordsfactory.dictionary.presentation.viewmodel.DictionaryViewModel
 
 @Composable
 fun DictionaryWordContent(
-    word: DictionaryWord,
+    word: DictionaryWordDto,
     viewModel: DictionaryViewModel,
     modifier: Modifier = Modifier
 ) {

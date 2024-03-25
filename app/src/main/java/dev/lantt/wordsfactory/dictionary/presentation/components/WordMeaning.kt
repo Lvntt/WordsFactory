@@ -25,11 +25,11 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingTiny
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.SecondaryColor
-import dev.lantt.wordsfactory.dictionary.domain.entity.Meaning
+import dev.lantt.wordsfactory.dictionary.data.model.MeaningDto
 
 @Composable
 fun WordMeaning(
-    meaning: Meaning,
+    meaning: MeaningDto,
     modifier: Modifier = Modifier
 ) {
     Box(
