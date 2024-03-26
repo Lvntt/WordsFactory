@@ -61,13 +61,11 @@ class DictionaryWordMapper(
     private fun DictionaryWordDto.getMeanings(): List<Meaning> {
         return meanings.map { meaningDto ->
             Meaning(
-                partOfSpeech = meaningDto.partOfSpeech,
-                definitions = meaningDto.definitions.map { definitionDto ->
-                    Definition(
-                        definition = definitionDto.definition,
-                        example = definitionDto.example
-                    )
-                }
+                partOfSpeech = meaningDto.partOfSpeech.capitalize(),
+                definition = Definition(
+                    definition = meaningDto.definitions[0].definition,
+                    example = meaningDto.definitions[0].example
+                )
             )
         }
     }

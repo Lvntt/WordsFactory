@@ -3,13 +3,12 @@ package dev.lantt.wordsfactory.dictionary.presentation.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,43 +44,39 @@ fun WordMeaning(
                 shape = RoundedCornerShape(CornerRadiusMedium)
             )
     ) {
-        LazyColumn(
+        Column(
             modifier = Modifier.padding(PaddingMedium),
             verticalArrangement = Arrangement.spacedBy(PaddingSmall)
         ) {
-            item {
-                Text(
-                    text = meaning.partOfSpeech,
-                    style = ParagraphLarge,
-                    color = PrimaryColor
-                )
-            }
+            Text(
+                text = meaning.partOfSpeech,
+                style = ParagraphLarge,
+                color = PrimaryColor
+            )
 
-            items(meaning.definitions) { definition ->
-                Text(
-                    text = definition.definition,
-                    style = ParagraphMedium,
-                    color = Color.Black
-                )
+            Text(
+                text = meaning.definition.definition,
+                style = ParagraphMedium,
+                color = Color.Black
+            )
 
-                // TODO spannable
-                val example = definition.example
-                example?.let {
-                    Row {
-                        Text(
-                            text = stringResource(id = R.string.example),
-                            style = ParagraphMedium,
-                            color = SecondaryColor
-                        )
+            // TODO spannable
+            val example = meaning.definition.example
+            example?.let {
+                Row {
+                    Text(
+                        text = stringResource(id = R.string.example),
+                        style = ParagraphMedium,
+                        color = SecondaryColor
+                    )
 
-                        Spacer(modifier = Modifier.width(PaddingTiny))
+                    Spacer(modifier = Modifier.width(PaddingTiny))
 
-                        Text(
-                            text = example,
-                            style = ParagraphMedium,
-                            color = Color.Black
-                        )
-                    }
+                    Text(
+                        text = example,
+                        style = ParagraphMedium,
+                        color = Color.Black
+                    )
                 }
             }
         }
