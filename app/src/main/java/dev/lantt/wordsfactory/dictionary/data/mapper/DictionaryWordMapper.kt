@@ -51,7 +51,7 @@ class DictionaryWordMapper(
             it.audio != null
         }
 
-        return phoneticAudio?.audio?.capitalize()
+        return phoneticAudio?.audio
     }
 
     private fun DictionaryWordDto.getPartsOfSpeech(): List<String> {
