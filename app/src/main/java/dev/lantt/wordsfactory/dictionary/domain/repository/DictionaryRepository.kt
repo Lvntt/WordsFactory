@@ -4,7 +4,7 @@ import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
 
 interface DictionaryRepository {
 
-    suspend fun getDictionaryWords(query: String): DictionaryWord
+    suspend fun getDictionaryWord(query: String): DictionaryWord
 
     suspend fun saveDictionaryWord(word: DictionaryWord)
 
