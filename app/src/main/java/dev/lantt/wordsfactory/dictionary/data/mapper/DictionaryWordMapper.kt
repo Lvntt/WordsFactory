@@ -1,7 +1,7 @@
 package dev.lantt.wordsfactory.dictionary.data.mapper
 
 import android.content.Context
-import dev.lantt.wordsfactory.dictionary.data.model.DictionaryWordDto
+import dev.lantt.wordsfactory.dictionary.data.model.remote.DictionaryWordDto
 import dev.lantt.wordsfactory.dictionary.domain.entity.Definition
 import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
 import dev.lantt.wordsfactory.dictionary.domain.entity.Meaning

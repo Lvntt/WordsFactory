@@ -1,7 +1,7 @@
 package dev.lantt.wordsfactory.dictionary.data.network
 
 import dev.lantt.wordsfactory.core.Constants.EN_DICTIONARY_URL
-import dev.lantt.wordsfactory.dictionary.data.model.DictionaryWordDto
+import dev.lantt.wordsfactory.dictionary.data.model.remote.DictionaryWordDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 
