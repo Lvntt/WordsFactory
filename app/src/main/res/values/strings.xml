@@ -38,5 +38,6 @@
     <string name="meanings">Meanings:</string>
     <string name="example">Example:</string>
     <string name="addToDictionary">Add to Dictionary</string>
+    <string name="connectionError">Oops! Connection error.\nConsider trying again!</string>
 
 </resources>

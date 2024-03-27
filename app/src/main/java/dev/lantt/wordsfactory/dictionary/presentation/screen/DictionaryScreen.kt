@@ -2,6 +2,7 @@ package dev.lantt.wordsfactory.dictionary.presentation.screen
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,14 +10,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -27,10 +32,12 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import dev.lantt.wordsfactory.R
 import dev.lantt.wordsfactory.core.presentation.ui.shared.InputTextFieldWithAction
 import dev.lantt.wordsfactory.core.presentation.ui.shared.PrimaryButton
+import dev.lantt.wordsfactory.core.presentation.ui.theme.HeadingH5
 import dev.lantt.wordsfactory.core.presentation.ui.theme.InkWhite
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingRegular
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
+import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
 import dev.lantt.wordsfactory.core.presentation.util.noRippleClickable
 import dev.lantt.wordsfactory.dictionary.presentation.components.DictionaryPlaceholderContent
 import dev.lantt.wordsfactory.dictionary.presentation.components.DictionaryWordContent
@@ -92,6 +99,7 @@ fun DictionaryScreen(
                 )
             }
             is DictionaryUiState.Error -> {
+                ErrorContent()
                 Log.e("DictionaryScreen", (uiState as DictionaryUiState.Error).message.toString())
             }
             is DictionaryUiState.Success -> {
@@ -114,6 +122,31 @@ fun DictionaryScreen(
                 text = stringResource(id = R.string.addToDictionary)
             )
         }
+    }
+}
+
+@Composable
+fun ErrorContent(
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(PaddingMedium)
+    ) {
+        Icon(
+            modifier = Modifier.size(48.dp),
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_wifi_off),
+            contentDescription = null,
+            tint = PrimaryColor
+        )
+
+        Text(
+            text = stringResource(id = R.string.connectionError),
+            style = HeadingH5,
+            color = Color.Black,
+            textAlign = TextAlign.Center
+        )
     }
 }
 
