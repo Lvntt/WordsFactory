@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -18,16 +17,20 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import dev.lantt.wordsfactory.R
 import dev.lantt.wordsfactory.core.presentation.ui.shared.InputTextFieldWithAction
 import dev.lantt.wordsfactory.core.presentation.ui.shared.PrimaryButton
 import dev.lantt.wordsfactory.core.presentation.ui.theme.InkWhite
-import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingLarge
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingRegular
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
-import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
 import dev.lantt.wordsfactory.core.presentation.util.noRippleClickable
 import dev.lantt.wordsfactory.dictionary.presentation.components.DictionaryPlaceholderContent
 import dev.lantt.wordsfactory.dictionary.presentation.components.DictionaryWordContent
@@ -81,12 +84,11 @@ fun DictionaryScreen(
                 )
             }
             DictionaryUiState.Loading -> {
-                CircularProgressIndicator(
+                LottieLoading(
                     modifier = Modifier
-                        .size(PaddingLarge)
+                        .size(100.dp)
                         .fillMaxWidth()
-                        .align(Alignment.CenterHorizontally),
-                    color = PrimaryColor
+                        .align(Alignment.CenterHorizontally)
                 )
             }
             is DictionaryUiState.Error -> {
@@ -113,4 +115,22 @@ fun DictionaryScreen(
             )
         }
     }
+}
+
+@Composable
+fun LottieLoading(
+    modifier: Modifier = Modifier
+) {
+    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.loading_animation))
+    LottieAnimation(
+        modifier = modifier,
+        composition = composition,
+        iterations = LottieConstants.IterateForever
+    )
+}
+
+@Preview
+@Composable
+fun MainScreenPreview() {
+    LottieLoading()
 }
