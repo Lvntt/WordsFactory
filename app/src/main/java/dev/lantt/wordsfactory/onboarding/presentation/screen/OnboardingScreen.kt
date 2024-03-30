@@ -53,6 +53,7 @@ fun OnboardingScreen(
                 )
                 .clickable {
                     onNavigateToRegistration()
+                    viewModel.onPassOnboarding()
                 },
             text = stringResource(id = R.string.skip),
             style = ButtonSmall,
@@ -83,6 +84,7 @@ fun OnboardingScreen(
             onClick = {
                 if (pagerState.currentPage == pageCount - 1) {
                     onNavigateToRegistration()
+                    viewModel.onPassOnboarding()
                 } else {
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)

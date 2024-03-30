@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.core.data
+package dev.lantt.wordsfactory.core.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import dev.lantt.wordsfactory.core.domain.model.UserLoginDto

@@ -12,9 +12,9 @@ import org.koin.dsl.module
 
 fun providePresentationModule(): Module = module {
 
-    viewModel { OnboardingViewModel() }
+    viewModel { OnboardingViewModel(get()) }
 
-    viewModel { SplashViewModel() }
+    viewModel { SplashViewModel(get(), get()) }
 
     viewModel { RegistrationViewModel(get(), Dispatchers.IO) }
 

@@ -4,8 +4,11 @@ import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import dev.lantt.wordsfactory.core.data.FirebaseAuthRepository
+import dev.lantt.wordsfactory.core.data.datasource.SettingsDataSource
+import dev.lantt.wordsfactory.core.data.repository.FirebaseAuthRepository
+import dev.lantt.wordsfactory.core.data.repository.SettingsRepositoryImpl
 import dev.lantt.wordsfactory.core.domain.repository.AuthRepository
+import dev.lantt.wordsfactory.core.domain.repository.SettingsRepository
 import dev.lantt.wordsfactory.dictionary.data.audio.AudioRepositoryImpl
 import dev.lantt.wordsfactory.dictionary.data.mapper.DictionaryWordMapper
 import dev.lantt.wordsfactory.dictionary.data.network.DictionaryApiService
@@ -42,6 +45,14 @@ private fun provideVideoDataSource(context: Context) =
 private fun provideVideoRepository(videoDataSource: VideoDataSource): VideoRepository =
     VideoRepositoryImpl(videoDataSource)
 
+private fun provideSettingsDataSource(context: Context): SettingsDataSource =
+    SettingsDataSource(context)
+
+private fun provideSettingsRepository(
+    settingsDataSource: SettingsDataSource
+): SettingsRepository =
+    SettingsRepositoryImpl(settingsDataSource)
+
 fun provideDataModule(): Module = module {
 
     single { provideFirebaseAuth() }
@@ -57,5 +68,9 @@ fun provideDataModule(): Module = module {
     single { provideVideoDataSource(androidContext().applicationContext) }
 
     single { provideVideoRepository(get()) }
+
+    single { provideSettingsDataSource(androidContext().applicationContext) }
+
+    single { provideSettingsRepository(get()) }
 
 }
