@@ -64,6 +64,7 @@ dependencies {
     val gsonConverterVersion = "2.9.0"
     val roomVersion = "2.6.1"
     val lottieVersion = "6.4.0"
+    val dataStoreVersion = "1.0.0-alpha01"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val koinCore = "io.insert-koin:koin-core:$koinVersion"
@@ -80,6 +81,7 @@ dependencies {
     val roomCompiler = "androidx.room:room-compiler:$roomVersion"
     val roomKtx = "androidx.room:room-ktx:$roomVersion"
     val lottie = "com.airbnb.android:lottie-compose:$lottieVersion"
+    val dataStore = "androidx.datastore:datastore-preferences:$dataStoreVersion"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -104,7 +106,8 @@ dependencies {
     implementation(room)
     implementation(roomKtx)
     implementation(lottie)
-
+    implementation(dataStore)
+    
     annotationProcessor(roomCompiler)
     ksp(roomCompiler)
 
