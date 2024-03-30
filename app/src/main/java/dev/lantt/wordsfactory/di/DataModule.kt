@@ -12,6 +12,9 @@ import dev.lantt.wordsfactory.dictionary.data.network.DictionaryApiService
 import dev.lantt.wordsfactory.dictionary.data.repository.DictionaryRepositoryImpl
 import dev.lantt.wordsfactory.dictionary.domain.repository.AudioRepository
 import dev.lantt.wordsfactory.dictionary.domain.repository.DictionaryRepository
+import dev.lantt.wordsfactory.video.data.datasource.VideoDataSource
+import dev.lantt.wordsfactory.video.data.repository.VideoRepositoryImpl
+import dev.lantt.wordsfactory.video.domain.repository.VideoRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -33,6 +36,12 @@ private fun provideDictionaryRepository(
 private fun provideAudioRepository(): AudioRepository =
     AudioRepositoryImpl()
 
+private fun provideVideoDataSource(context: Context) =
+    VideoDataSource(context)
+
+private fun provideVideoRepository(videoDataSource: VideoDataSource): VideoRepository =
+    VideoRepositoryImpl(videoDataSource)
+
 fun provideDataModule(): Module = module {
 
     single { provideFirebaseAuth() }
@@ -44,5 +53,9 @@ fun provideDataModule(): Module = module {
     single { provideDictionaryRepository(get(), get()) }
 
     single { provideAudioRepository() }
+
+    single { provideVideoDataSource(androidContext().applicationContext) }
+
+    single { provideVideoRepository(get()) }
 
 }

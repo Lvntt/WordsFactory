@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dev.lantt.wordsfactory.dictionary.presentation.screen.DictionaryScreen
+import dev.lantt.wordsfactory.video.presentation.VideoScreen
 
 @Composable
 fun BottomNavigation(
@@ -23,7 +24,7 @@ fun BottomNavigation(
         }
 
         composable(WordsFactoryDestinations.VIDEO) {
-
+            VideoScreen()
         }
     }
 }
