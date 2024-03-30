@@ -1,7 +1,7 @@
 package dev.lantt.wordsfactory.auth.domain.usecase
 
-import dev.lantt.wordsfactory.auth.domain.model.UserRegisterDto
-import dev.lantt.wordsfactory.auth.domain.repository.AuthRepository
+import dev.lantt.wordsfactory.core.domain.model.UserRegisterDto
+import dev.lantt.wordsfactory.core.domain.repository.AuthRepository
 
 class RegisterUserUseCase(
     private val authRepository: AuthRepository

@@ -2,7 +2,7 @@ package dev.lantt.wordsfactory.auth.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.lantt.wordsfactory.auth.domain.model.UserRegisterDto
+import dev.lantt.wordsfactory.core.domain.model.UserRegisterDto
 import dev.lantt.wordsfactory.auth.domain.usecase.RegisterUserUseCase
 import dev.lantt.wordsfactory.auth.presentation.event.RegistrationUiState
 import dev.lantt.wordsfactory.auth.presentation.state.ErrorDialogState

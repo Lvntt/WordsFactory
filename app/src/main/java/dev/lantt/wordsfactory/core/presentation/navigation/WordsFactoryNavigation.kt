@@ -26,7 +26,7 @@ fun RootNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = WordsFactoryDestinations.DICTIONARY
+        startDestination = WordsFactoryDestinations.SPLASH
     ) {
         composable(WordsFactoryDestinations.SPLASH) {
             SplashScreen(

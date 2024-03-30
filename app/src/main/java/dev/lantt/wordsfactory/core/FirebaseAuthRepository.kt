@@ -1,9 +1,9 @@
-package dev.lantt.wordsfactory.auth.data
+package dev.lantt.wordsfactory.core
 
 import com.google.firebase.auth.FirebaseAuth
-import dev.lantt.wordsfactory.auth.domain.model.UserLoginDto
-import dev.lantt.wordsfactory.auth.domain.model.UserRegisterDto
-import dev.lantt.wordsfactory.auth.domain.repository.AuthRepository
+import dev.lantt.wordsfactory.core.domain.model.UserLoginDto
+import dev.lantt.wordsfactory.core.domain.model.UserRegisterDto
+import dev.lantt.wordsfactory.core.domain.repository.AuthRepository
 
 class FirebaseAuthRepository(
     private val firebaseAuth: FirebaseAuth
