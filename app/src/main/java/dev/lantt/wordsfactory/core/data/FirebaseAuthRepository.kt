@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.core
+package dev.lantt.wordsfactory.core.data
 
 import com.google.firebase.auth.FirebaseAuth
 import dev.lantt.wordsfactory.core.domain.model.UserLoginDto
@@ -15,6 +15,10 @@ class FirebaseAuthRepository(
 
     override suspend fun login(user: UserLoginDto) {
         TODO("Not yet implemented")
+    }
+
+    override fun isUserLoggedIn(): Boolean {
+        return firebaseAuth.currentUser != null
     }
 
 }

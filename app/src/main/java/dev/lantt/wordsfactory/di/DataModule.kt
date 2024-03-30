@@ -4,7 +4,7 @@ import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import dev.lantt.wordsfactory.core.FirebaseAuthRepository
+import dev.lantt.wordsfactory.core.data.FirebaseAuthRepository
 import dev.lantt.wordsfactory.core.domain.repository.AuthRepository
 import dev.lantt.wordsfactory.dictionary.data.audio.AudioRepositoryImpl
 import dev.lantt.wordsfactory.dictionary.data.mapper.DictionaryWordMapper
