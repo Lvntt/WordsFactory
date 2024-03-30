@@ -36,7 +36,9 @@ fun RootNavigation(
                 onNavigateToRegistration = {
                     navController.navigate(WordsFactoryDestinations.REGISTRATION)
                 },
-                onNavigateToDictionary = {}
+                onNavigateToDictionary = {
+                    navController.navigate(WordsFactoryDestinations.DICTIONARY)
+                }
             )
         }
         

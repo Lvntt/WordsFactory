@@ -19,15 +19,16 @@ class SplashViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            if (checkUserLoginUseCase()) {
-                splashEventChannel.send(SplashEvent.AuthenticationPassed)
-            } else {
-                if (checkOnboardingPassedUseCase()) {
-                    splashEventChannel.send(SplashEvent.AuthenticationRequired)
-                } else {
-                    splashEventChannel.send(SplashEvent.OnboardingRequired)
+            val isUserLoggedIn = checkUserLoginUseCase()
+            val isOnboardingPassed = checkOnboardingPassedUseCase()
+
+            splashEventChannel.send(
+                when {
+                    isUserLoggedIn -> SplashEvent.AuthenticationPassed
+                    isOnboardingPassed && !isUserLoggedIn -> SplashEvent.AuthenticationRequired
+                    else -> SplashEvent.OnboardingRequired
                 }
-            }
+            )
         }
     }
 

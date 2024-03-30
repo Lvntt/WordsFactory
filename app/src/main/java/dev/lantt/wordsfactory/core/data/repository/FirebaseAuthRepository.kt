@@ -1,5 +1,6 @@
 package dev.lantt.wordsfactory.core.data.repository
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import dev.lantt.wordsfactory.core.domain.model.UserLoginDto
 import dev.lantt.wordsfactory.core.domain.model.UserRegisterDto
@@ -18,6 +19,7 @@ class FirebaseAuthRepository(
     }
 
     override fun isUserLoggedIn(): Boolean {
+        Log.d("FirebaseAuthRepository", "${firebaseAuth.currentUser != null}")
         return firebaseAuth.currentUser != null
     }
 
