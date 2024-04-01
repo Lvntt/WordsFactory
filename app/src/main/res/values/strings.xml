@@ -40,4 +40,10 @@
     <string name="addToDictionary">Add to Dictionary</string>
     <string name="connectionError">Oops! Connection error.\nConsider trying again!</string>
 
+    // Training
+    <string name="dictionaryWordsTitleFirst">There are</string>
+    <string name="dictionaryWordsTitleLast">words\nin your Dictionary.</string>
+    <string name="trainingQuestion">Start the Training?</string>
+    <string name="start">Start</string>
+
 </resources>
