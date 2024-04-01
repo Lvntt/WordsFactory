@@ -18,7 +18,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import dev.lantt.wordsfactory.R
-import dev.lantt.wordsfactory.core.presentation.ui.theme.CornerRadiusMedium
+import dev.lantt.wordsfactory.core.presentation.ui.theme.CornerRadiusLarge
 import dev.lantt.wordsfactory.core.presentation.ui.theme.InkGray
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
@@ -36,11 +36,11 @@ fun WordMeaning(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(CornerRadiusMedium))
+            .clip(RoundedCornerShape(CornerRadiusLarge))
             .border(
                 width = 1.dp,
                 color = InkGray,
-                shape = RoundedCornerShape(CornerRadiusMedium)
+                shape = RoundedCornerShape(CornerRadiusLarge)
             )
     ) {
         Column(

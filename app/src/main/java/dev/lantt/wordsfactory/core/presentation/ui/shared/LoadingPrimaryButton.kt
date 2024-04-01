@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ButtonHeightRegular
-import dev.lantt.wordsfactory.core.presentation.ui.theme.CornerRadiusMedium
+import dev.lantt.wordsfactory.core.presentation.ui.theme.CornerRadiusLarge
 import dev.lantt.wordsfactory.core.presentation.ui.theme.InkWhite
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingLarge
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
@@ -29,7 +29,7 @@ fun LoadingPrimaryButton(
             .height(ButtonHeightRegular),
         onClick = {},
         enabled = false,
-        shape = RoundedCornerShape(size = CornerRadiusMedium),
+        shape = RoundedCornerShape(size = CornerRadiusLarge),
         colors = ButtonDefaults.buttonColors(
             containerColor = PrimaryColor,
             contentColor = InkWhite,

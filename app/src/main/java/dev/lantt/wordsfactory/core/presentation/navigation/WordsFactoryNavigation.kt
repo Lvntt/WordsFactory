@@ -8,7 +8,7 @@ import dev.lantt.wordsfactory.auth.presentation.screen.LoginScreen
 import dev.lantt.wordsfactory.auth.presentation.screen.RegistrationScreen
 import dev.lantt.wordsfactory.onboarding.presentation.screen.OnboardingScreen
 import dev.lantt.wordsfactory.splash.presentation.SplashScreen
-import dev.lantt.wordsfactory.training.presentation.screen.TestQuestionScreen
+import dev.lantt.wordsfactory.training.presentation.screen.TestScreen
 
 object WordsFactoryDestinations {
     const val SPLASH = "splash"
@@ -80,7 +80,7 @@ fun RootNavigation(
         }
 
         composable(WordsFactoryDestinations.TEST_QUESTION) {
-            TestQuestionScreen()
+            TestScreen()
         }
     }
 }
