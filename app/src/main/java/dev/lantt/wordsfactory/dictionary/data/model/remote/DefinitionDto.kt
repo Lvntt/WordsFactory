@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.dictionary.data.model
+package dev.lantt.wordsfactory.dictionary.data.model.remote
 
 data class DefinitionDto(
     val definition: String,

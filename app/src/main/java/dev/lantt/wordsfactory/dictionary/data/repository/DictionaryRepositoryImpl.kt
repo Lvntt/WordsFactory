@@ -10,7 +10,7 @@ class DictionaryRepositoryImpl(
     private val dictionaryWordMapper: DictionaryWordMapper
 ) : DictionaryRepository {
 
-    override suspend fun getDictionaryWords(query: String): DictionaryWord {
+    override suspend fun getDictionaryWord(query: String): DictionaryWord {
         val apiResult = dictionaryApiService.getDictionaryWord(query)
         return dictionaryWordMapper.mapToDomain(apiResult[0])
     }

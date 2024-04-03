@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -61,6 +62,9 @@ dependencies {
     val loggingInterceptorVersion = "4.11.0"
     val gsonVersion = "2.10.1"
     val gsonConverterVersion = "2.9.0"
+    val roomVersion = "2.6.1"
+    val lottieVersion = "6.4.0"
+    val dataStoreVersion = "1.0.0-alpha01"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val koinCore = "io.insert-koin:koin-core:$koinVersion"
@@ -73,11 +77,16 @@ dependencies {
     val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
     val gson = "com.google.code.gson:gson:$gsonVersion"
     val gsonConverter = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
+    val room = "androidx.room:room-runtime:$roomVersion"
+    val roomCompiler = "androidx.room:room-compiler:$roomVersion"
+    val roomKtx = "androidx.room:room-ktx:$roomVersion"
+    val lottie = "com.airbnb.android:lottie-compose:$lottieVersion"
+    val dataStore = "androidx.datastore:datastore-preferences:$dataStoreVersion"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2024.02.02"))
+    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -94,11 +103,18 @@ dependencies {
     implementation(loggingInterceptor)
     implementation(gson)
     implementation(gsonConverter)
+    implementation(room)
+    implementation(roomKtx)
+    implementation(lottie)
+    implementation(dataStore)
+    
+    annotationProcessor(roomCompiler)
+    ksp(roomCompiler)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.02"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

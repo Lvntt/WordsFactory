@@ -26,3 +26,9 @@ val WarningColor = Color(0xFFF2A03F)
 // Additional colors
 val PagerIndicatorDotInactive = Color(0xFFD5D4D4)
 val PagerIndicatorDotActive = SecondaryColor
+
+val TestOptionUnselectedBorder = Color(0xFFBEBAB3)
+val TestOptionSelectedBorder = Color(0xFFF3705A)
+
+val TestOptionUnselectedBackground = Color(0xFFFFFFFF)
+val TestOptionSelectedBackground = Color(0xFFFFF5EE)

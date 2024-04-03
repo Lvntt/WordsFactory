@@ -17,7 +17,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import dev.lantt.wordsfactory.core.presentation.ui.theme.CornerRadiusMedium
+import dev.lantt.wordsfactory.core.presentation.ui.theme.CornerRadiusLarge
 import dev.lantt.wordsfactory.core.presentation.ui.theme.InkGray
 import dev.lantt.wordsfactory.core.presentation.ui.theme.InkWhite
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
@@ -32,8 +32,8 @@ fun BottomNavigationBar(
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
     val bottomNavigationBarShape = RoundedCornerShape(
-        topStart = CornerRadiusMedium,
-        topEnd = CornerRadiusMedium
+        topStart = CornerRadiusLarge,
+        topEnd = CornerRadiusLarge
     )
 
     NavigationBar(

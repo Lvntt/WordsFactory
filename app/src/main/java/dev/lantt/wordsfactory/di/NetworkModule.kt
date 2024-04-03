@@ -1,6 +1,6 @@
 package dev.lantt.wordsfactory.di
 
-import dev.lantt.wordsfactory.core.Constants.BASE_URL
+import dev.lantt.wordsfactory.core.Constants.DICTIONARY_BASE_URL
 import dev.lantt.wordsfactory.core.Constants.CONNECT_TIMEOUT_SEC
 import dev.lantt.wordsfactory.core.Constants.READ_TIMEOUT_SEC
 import dev.lantt.wordsfactory.core.Constants.WRITE_TIMEOUT_SEC
@@ -49,7 +49,7 @@ fun provideNetworkModule(): Module = module {
 
     single { provideOkHttpClient(get()) }
 
-    single { provideRetrofit(get(), BASE_URL) }
+    single { provideRetrofit(get(), DICTIONARY_BASE_URL) }
 
     single { provideDictionaryApiService(get()) }
 

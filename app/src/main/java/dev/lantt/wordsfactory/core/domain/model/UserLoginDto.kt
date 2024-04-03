@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.auth.domain.model
+package dev.lantt.wordsfactory.core.domain.model
 
 data class UserLoginDto(
     val email: String,

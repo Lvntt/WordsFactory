@@ -38,5 +38,30 @@
     <string name="meanings">Meanings:</string>
     <string name="example">Example:</string>
     <string name="addToDictionary">Add to Dictionary</string>
+    <string name="connectionError">Oops! Connection error.\nConsider trying again!</string>
+
+    // Training
+    <string name="dictionaryWordsTitleFirst">There are</string>
+    <string name="dictionaryWordsTitleLast">words\nin your Dictionary.</string>
+    <string name="trainingQuestion">Start the Training?</string>
+    <string name="start">Start</string>
+
+    // Training test question
+    <string name="wordsProgress">%1$s of %2$s</string>
+    <string name="aOption">A.</string>
+    <string name="bOption">B.</string>
+    <string name="cOption">C.</string>
+
+    // Training question placeholders
+    <string name="testQuestionPlaceholder">The practice or skill of preparing food by combining, mixing, and heating ingredients.</string>
+    <string name="cooking">Cooking</string>
+    <string name="smiling">Smiling</string>
+    <string name="freezing">Freezing</string>
+
+    // Training finished
+    <string name="trainingFinished">Training is finished</string>
+    <string name="correctWords">Correct: %1$s</string>
+    <string name="incorrectWords">Incorrect: %1$s</string>
+    <string name="again">Again</string>
 
 </resources>

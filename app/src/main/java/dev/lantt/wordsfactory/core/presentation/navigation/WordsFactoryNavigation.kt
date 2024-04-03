@@ -8,12 +8,15 @@ import dev.lantt.wordsfactory.auth.presentation.screen.LoginScreen
 import dev.lantt.wordsfactory.auth.presentation.screen.RegistrationScreen
 import dev.lantt.wordsfactory.onboarding.presentation.screen.OnboardingScreen
 import dev.lantt.wordsfactory.splash.presentation.SplashScreen
+import dev.lantt.wordsfactory.training.presentation.screen.TestScreen
 
 object WordsFactoryDestinations {
     const val SPLASH = "splash"
     const val ONBOARDING = "onboarding"
     const val REGISTRATION = "registration"
     const val LOGIN = "login"
+    const val TEST_QUESTION = "test_question"
+
     const val DICTIONARY = "dictionary"
     const val TRAINING = "training"
     const val VIDEO = "video"
@@ -36,7 +39,9 @@ fun RootNavigation(
                 onNavigateToRegistration = {
                     navController.navigate(WordsFactoryDestinations.REGISTRATION)
                 },
-                onNavigateToDictionary = {}
+                onNavigateToDictionary = {
+                    navController.navigate(WordsFactoryDestinations.DICTIONARY)
+                }
             )
         }
         
@@ -69,8 +74,13 @@ fun RootNavigation(
 
         composable(WordsFactoryDestinations.DICTIONARY) {
             BottomNavigationWrapper(
+                rootNavController = navController,
                 onCloseApp = onCloseApp
             )
+        }
+
+        composable(WordsFactoryDestinations.TEST_QUESTION) {
+            TestScreen()
         }
     }
 }

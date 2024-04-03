@@ -8,6 +8,6 @@ class GetDictionaryWordUseCase(
 ) {
 
     suspend operator fun invoke(query: String): DictionaryWord
-        = dictionaryRepository.getDictionaryWords(query)
+        = dictionaryRepository.getDictionaryWord(query)
 
 }
