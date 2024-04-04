@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.lantt.wordsfactory.R
 import dev.lantt.wordsfactory.auth.presentation.components.RegistrationForm
-import dev.lantt.wordsfactory.auth.presentation.event.RegistrationUiState
+import dev.lantt.wordsfactory.auth.presentation.state.RegistrationUiState
 import dev.lantt.wordsfactory.auth.presentation.viewmodel.RegistrationViewModel
 import dev.lantt.wordsfactory.core.presentation.ui.shared.LoadingPrimaryButton
 import dev.lantt.wordsfactory.core.presentation.ui.shared.PrimaryButton

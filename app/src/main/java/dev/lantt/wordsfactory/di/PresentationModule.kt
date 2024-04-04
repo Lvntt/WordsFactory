@@ -1,5 +1,6 @@
 package dev.lantt.wordsfactory.di
 
+import dev.lantt.wordsfactory.auth.presentation.viewmodel.LoginViewModel
 import dev.lantt.wordsfactory.auth.presentation.viewmodel.RegistrationViewModel
 import dev.lantt.wordsfactory.dictionary.presentation.viewmodel.DictionaryViewModel
 import dev.lantt.wordsfactory.onboarding.presentation.viewmodel.OnboardingViewModel
@@ -19,6 +20,8 @@ fun providePresentationModule(): Module = module {
     viewModel { SplashViewModel(get(), get()) }
 
     viewModel { RegistrationViewModel(get(), Dispatchers.IO) }
+
+    viewModel { LoginViewModel(get(), Dispatchers.IO) }
 
     viewModel { DictionaryViewModel(get(), get(), get(), Dispatchers.IO) }
 

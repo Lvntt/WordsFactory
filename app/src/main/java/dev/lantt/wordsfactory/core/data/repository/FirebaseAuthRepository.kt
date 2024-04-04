@@ -1,6 +1,5 @@
 package dev.lantt.wordsfactory.core.data.repository
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -32,11 +31,16 @@ class FirebaseAuthRepository(
     }
 
     override suspend fun login(user: UserLoginDto) {
-        TODO("Not yet implemented")
+        try {
+            firebaseAuth.signInWithEmailAndPassword(user.email, user.password).await()
+        } catch (e: FirebaseAuthInvalidCredentialsException) {
+            throw InvalidCredentialsException()
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     override fun isUserLoggedIn(): Boolean {
-        Log.d("FirebaseAuthRepository", "${firebaseAuth.currentUser != null}")
         return firebaseAuth.currentUser != null
     }
 

@@ -9,13 +9,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.lantt.wordsfactory.R
 import dev.lantt.wordsfactory.auth.presentation.components.LoginForm
+import dev.lantt.wordsfactory.auth.presentation.state.LoginUiState
+import dev.lantt.wordsfactory.auth.presentation.viewmodel.LoginViewModel
+import dev.lantt.wordsfactory.core.presentation.ui.shared.LoadingPrimaryButton
 import dev.lantt.wordsfactory.core.presentation.ui.shared.PrimaryButton
 import dev.lantt.wordsfactory.core.presentation.ui.theme.HeadingH4
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
@@ -24,16 +31,32 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingTiny
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.SecondaryColor
 import dev.lantt.wordsfactory.core.presentation.util.noRippleClickable
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreen(
     onNavigateToRegistration: () -> Unit,
-    modifier: Modifier = Modifier
+    onNavigateToDictionary: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: LoginViewModel = koinViewModel()
 ) {
+    val focusManager = LocalFocusManager.current
+    val uiState by viewModel.loginUiState.collectAsStateWithLifecycle()
+    val loginState by viewModel.loginState.collectAsStateWithLifecycle()
+
+    if (uiState is LoginUiState.Success) {
+        LaunchedEffect(Unit) {
+            onNavigateToDictionary()
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = PaddingMedium),
+            .padding(horizontal = PaddingMedium)
+            .noRippleClickable {
+                focusManager.clearFocus()
+            },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(PaddingMedium)
     ) {
@@ -49,14 +72,19 @@ fun LoginScreen(
             style = HeadingH4
         )
 
-        LoginForm()
+        LoginForm(viewModel = viewModel)
 
         Spacer(modifier = Modifier.weight(1.5f))
 
-        PrimaryButton(
-            onClick = { /*TODO*/ },
-            text = stringResource(id = R.string.signIn)
-        )
+        if (uiState is LoginUiState.Loading) {
+            LoadingPrimaryButton()
+        } else {
+            PrimaryButton(
+                onClick = viewModel::onLogin,
+                enabled = loginState.isLoginEnabled,
+                text = stringResource(id = R.string.signIn)
+            )
+        }
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(PaddingTiny)
@@ -84,5 +112,5 @@ fun LoginScreen(
 @Preview
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen({})
+    LoginScreen({}, {})
 }

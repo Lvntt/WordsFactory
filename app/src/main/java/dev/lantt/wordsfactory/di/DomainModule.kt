@@ -1,5 +1,6 @@
 package dev.lantt.wordsfactory.di
 
+import dev.lantt.wordsfactory.auth.domain.usecase.LoginUserUseCase
 import dev.lantt.wordsfactory.auth.domain.usecase.RegisterUserUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.PlayAudioUseCase
@@ -15,6 +16,8 @@ import org.koin.dsl.module
 fun provideDomainModule(): Module = module {
 
     factory { RegisterUserUseCase(get()) }
+
+    factory { LoginUserUseCase(get()) }
 
     factory { GetDictionaryWordUseCase(get()) }
 

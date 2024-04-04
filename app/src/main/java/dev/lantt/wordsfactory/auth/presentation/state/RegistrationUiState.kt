@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.auth.presentation.event
+package dev.lantt.wordsfactory.auth.presentation.state
 
 sealed interface RegistrationUiState {
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dev.lantt.wordsfactory.R
 import dev.lantt.wordsfactory.core.domain.model.UserRegisterDto
 import dev.lantt.wordsfactory.auth.domain.usecase.RegisterUserUseCase
-import dev.lantt.wordsfactory.auth.presentation.event.RegistrationUiState
+import dev.lantt.wordsfactory.auth.presentation.state.RegistrationUiState
 import dev.lantt.wordsfactory.auth.presentation.state.RegistrationState
 import dev.lantt.wordsfactory.core.domain.model.exception.InvalidCredentialsException
 import dev.lantt.wordsfactory.core.domain.model.exception.UserCollisionException

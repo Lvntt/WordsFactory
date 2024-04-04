@@ -68,6 +68,9 @@ fun RootNavigation(
             LoginScreen(
                 onNavigateToRegistration = {
                     navController.navigate(WordsFactoryDestinations.REGISTRATION)
+                },
+                onNavigateToDictionary = {
+                    navController.navigate(WordsFactoryDestinations.DICTIONARY)
                 }
             )
         }
