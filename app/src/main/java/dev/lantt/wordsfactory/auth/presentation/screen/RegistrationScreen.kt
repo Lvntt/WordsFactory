@@ -44,6 +44,7 @@ fun RegistrationScreen(
 ) {
     val focusManager = LocalFocusManager.current
     val uiState by viewModel.registrationUiState.collectAsStateWithLifecycle()
+    val registrationState by viewModel.registrationState.collectAsStateWithLifecycle()
 
     if (uiState is RegistrationUiState.Success) {
         LaunchedEffect(Unit) {
@@ -95,6 +96,7 @@ fun RegistrationScreen(
             PrimaryButton(
                 modifier = Modifier.padding(vertical = PaddingMedium),
                 onClick = viewModel::onRegister,
+                enabled = registrationState.isRegistrationEnabled,
                 text = stringResource(id = R.string.signUp)
             )
         }

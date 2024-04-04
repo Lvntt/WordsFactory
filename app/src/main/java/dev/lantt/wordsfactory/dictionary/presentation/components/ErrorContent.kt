@@ -37,7 +37,7 @@ fun ErrorContent(
         )
 
         Text(
-            text = stringResource(id = R.string.connectionError),
+            text = stringResource(id = R.string.connectionErrorDescription),
             style = HeadingH5,
             color = Color.Black,
             textAlign = TextAlign.Center

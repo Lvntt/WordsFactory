@@ -20,6 +20,12 @@
     <string name="changePasswordVisibility">Change password visibility</string>
     <string name="alreadyHaveAnAccount">Already have an account?</string>
 
+    // Network errors
+    <string name="invalidInput">Invalid data</string>
+    <string name="invalidInputDescription">Something is wrong with your registration data, and we could not register you. Try again!</string>
+    <string name="connectionError">Connection error</string>
+    <string name="connectionErrorDescription">Oops! Connection error.\nConsider trying again!</string>
+
     // Sign in
     <string name="signIn">Sign in</string>
     <string name="noAccount">No account?</string>
@@ -38,7 +44,6 @@
     <string name="meanings">Meanings:</string>
     <string name="example">Example:</string>
     <string name="addToDictionary">Add to Dictionary</string>
-    <string name="connectionError">Oops! Connection error.\nConsider trying again!</string>
 
     // Training
     <string name="dictionaryWordsTitleFirst">There are</string>
@@ -63,5 +68,8 @@
     <string name="correctWords">Correct: %1$s</string>
     <string name="incorrectWords">Incorrect: %1$s</string>
     <string name="again">Again</string>
+
+    // Dialog
+    <string name="ok">OK</string>
 
 </resources>

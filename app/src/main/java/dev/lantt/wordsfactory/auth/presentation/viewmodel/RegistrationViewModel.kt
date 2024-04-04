@@ -2,15 +2,17 @@ package dev.lantt.wordsfactory.auth.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.lantt.wordsfactory.R
 import dev.lantt.wordsfactory.core.domain.model.UserRegisterDto
 import dev.lantt.wordsfactory.auth.domain.usecase.RegisterUserUseCase
 import dev.lantt.wordsfactory.auth.presentation.event.RegistrationUiState
-import dev.lantt.wordsfactory.auth.presentation.state.ErrorDialogState
 import dev.lantt.wordsfactory.auth.presentation.state.RegistrationState
+import dev.lantt.wordsfactory.core.domain.model.exception.InvalidCredentialsException
+import dev.lantt.wordsfactory.core.domain.model.exception.UserCollisionException
+import dev.lantt.wordsfactory.core.domain.model.exception.WeakPasswordException
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -26,8 +28,33 @@ class RegistrationViewModel(
     private val _registrationUiState = MutableStateFlow<RegistrationUiState>(RegistrationUiState.Initial)
     val registrationUiState = _registrationUiState.asStateFlow()
 
-    private val _errorDialogState = MutableSharedFlow<ErrorDialogState>()
-    val errorDialogState = _errorDialogState.asSharedFlow()
+    private val registrationExceptionHandler = CoroutineExceptionHandler { _, exception ->
+        val errorTitleId: Int
+        val errorTextId: Int
+
+        when (exception) {
+            is WeakPasswordException,
+            is UserCollisionException,
+            is InvalidCredentialsException -> {
+                errorTitleId = R.string.invalidInput
+                errorTextId = R.string.invalidInputDescription
+            }
+            else -> {
+                errorTitleId = R.string.connectionError
+                errorTextId = R.string.connectionErrorDescription
+            }
+        }
+
+        _registrationUiState.update { RegistrationUiState.Initial }
+
+        _registrationState.update {
+            it.copy(
+                isErrorDialogShown = true,
+                errorTitleId = errorTitleId,
+                errorTextId = errorTextId
+            )
+        }
+    }
 
     fun onNameChange(name: String) {
         _registrationState.update {
@@ -55,7 +82,7 @@ class RegistrationViewModel(
 
     fun onRegister() {
         _registrationUiState.update { RegistrationUiState.Loading }
-        viewModelScope.launch(defaultDispatcher) {
+        viewModelScope.launch(defaultDispatcher + registrationExceptionHandler) {
             registerUserUseCase(
                 user = UserRegisterDto(
                     name = _registrationState.value.name,
@@ -64,12 +91,17 @@ class RegistrationViewModel(
                 )
             )
             _registrationUiState.update { RegistrationUiState.Success }
-            // _errorDialogState.emit(ErrorDialogState.IncorrectInput)
         }
     }
 
-    fun resetState() {
-        _registrationUiState.update { RegistrationUiState.Initial }
+    fun onDismissErrorDialog() {
+        _registrationState.update {
+            it.copy(
+                isErrorDialogShown = false,
+                errorTitleId = null,
+                errorTextId = null
+            )
+        }
     }
 
 }
