@@ -108,7 +108,7 @@ fun DictionaryScreen(
                     horizontal = PaddingRegular,
                     vertical = PaddingSmall
                 ),
-                onClick = { /*TODO*/ },
+                onClick = viewModel::onSaveDictionaryWord,
                 text = stringResource(id = R.string.addToDictionary)
             )
         }

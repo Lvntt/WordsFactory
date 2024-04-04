@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.PlayAudioUseCase
+import dev.lantt.wordsfactory.dictionary.domain.usecase.SaveDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.StopAudioUseCase
 import dev.lantt.wordsfactory.dictionary.presentation.state.DictionaryState
 import dev.lantt.wordsfactory.dictionary.presentation.state.DictionaryUiState
@@ -16,6 +17,7 @@ import kotlinx.coroutines.launch
 
 class DictionaryViewModel(
     private val getDictionaryWordUseCase: GetDictionaryWordUseCase,
+    private val saveDictionaryWordUseCase: SaveDictionaryWordUseCase,
     private val playAudioUseCase: PlayAudioUseCase,
     private val stopAudioUseCase: StopAudioUseCase,
     private val defaultDispatcher: CoroutineDispatcher
@@ -45,6 +47,14 @@ class DictionaryViewModel(
                     getDictionaryWordUseCase(_dictionaryState.value.query)
                 )
             }
+        }
+    }
+
+    fun onSaveDictionaryWord() {
+        viewModelScope.launch(defaultDispatcher + dictionaryExceptionHandler) {
+            val currentWord = (_dictionaryUiState.value as DictionaryUiState.Success).word
+            saveDictionaryWordUseCase(currentWord)
+            // TODO state?
         }
     }
 

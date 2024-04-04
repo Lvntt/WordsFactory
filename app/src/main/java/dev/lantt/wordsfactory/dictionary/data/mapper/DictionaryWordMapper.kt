@@ -1,6 +1,7 @@
 package dev.lantt.wordsfactory.dictionary.data.mapper
 
 import android.content.Context
+import dev.lantt.wordsfactory.dictionary.data.model.local.DictionaryWordEntity
 import dev.lantt.wordsfactory.dictionary.data.model.remote.DictionaryWordDto
 import dev.lantt.wordsfactory.dictionary.domain.entity.Definition
 import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
@@ -12,7 +13,7 @@ class DictionaryWordMapper(
 
     private val locale = context.resources.configuration.locales[0]
 
-    fun mapToDomain(data: DictionaryWordDto): DictionaryWord {
+    fun mapDtoToDomain(data: DictionaryWordDto): DictionaryWord {
         with(data) {
             val word = word.capitalize()
             val phonetic = getPhonetic()

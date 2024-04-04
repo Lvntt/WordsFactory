@@ -23,7 +23,7 @@ fun providePresentationModule(): Module = module {
 
     viewModel { LoginViewModel(get(), Dispatchers.IO) }
 
-    viewModel { DictionaryViewModel(get(), get(), get(), Dispatchers.IO) }
+    viewModel { DictionaryViewModel(get(), get(), get(), get(), Dispatchers.IO) }
 
     viewModel { VideoViewModel(get(), get()) }
 

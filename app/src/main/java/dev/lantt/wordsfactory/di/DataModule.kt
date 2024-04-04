@@ -1,6 +1,7 @@
 package dev.lantt.wordsfactory.di
 
 import android.content.Context
+import androidx.room.Room
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -10,6 +11,8 @@ import dev.lantt.wordsfactory.core.data.repository.SettingsRepositoryImpl
 import dev.lantt.wordsfactory.core.domain.repository.AuthRepository
 import dev.lantt.wordsfactory.core.domain.repository.SettingsRepository
 import dev.lantt.wordsfactory.dictionary.data.audio.AudioRepositoryImpl
+import dev.lantt.wordsfactory.dictionary.data.dao.DictionaryDao
+import dev.lantt.wordsfactory.dictionary.data.db.DictionaryDatabase
 import dev.lantt.wordsfactory.dictionary.data.mapper.DictionaryWordMapper
 import dev.lantt.wordsfactory.dictionary.data.network.DictionaryApiService
 import dev.lantt.wordsfactory.dictionary.data.repository.DictionaryRepositoryImpl
@@ -32,9 +35,14 @@ private fun provideAuthRepository(firebaseAuth: FirebaseAuth): AuthRepository =
 
 private fun provideDictionaryRepository(
     dictionaryApiService: DictionaryApiService,
-    dictionaryWordMapper: DictionaryWordMapper
+    dictionaryWordMapper: DictionaryWordMapper,
+    dictionaryDao: DictionaryDao
 ): DictionaryRepository =
-    DictionaryRepositoryImpl(dictionaryApiService, dictionaryWordMapper)
+    DictionaryRepositoryImpl(
+        dictionaryApiService,
+        dictionaryWordMapper,
+        dictionaryDao
+    )
 
 private fun provideAudioRepository(): AudioRepository =
     AudioRepositoryImpl()
@@ -53,6 +61,16 @@ private fun provideSettingsRepository(
 ): SettingsRepository =
     SettingsRepositoryImpl(settingsDataSource)
 
+private fun provideDictionaryDatabase(context: Context): DictionaryDatabase =
+    Room.databaseBuilder(
+        context,
+        DictionaryDatabase::class.java,
+        "dictionary_db"
+    ).build()
+
+private fun provideDictionaryDao(dictionaryDatabase: DictionaryDatabase) =
+    dictionaryDatabase.dictionaryDao()
+
 fun provideDataModule(): Module = module {
 
     single { provideFirebaseAuth() }
@@ -61,7 +79,7 @@ fun provideDataModule(): Module = module {
 
     single { provideAuthRepository(get()) }
 
-    single { provideDictionaryRepository(get(), get()) }
+    single { provideDictionaryRepository(get(), get(), get()) }
 
     single { provideAudioRepository() }
 
@@ -72,5 +90,9 @@ fun provideDataModule(): Module = module {
     single { provideSettingsDataSource(androidContext().applicationContext) }
 
     single { provideSettingsRepository(get()) }
+
+    single { provideDictionaryDatabase(androidContext().applicationContext) }
+
+    single { provideDictionaryDao(get()) }
 
 }
