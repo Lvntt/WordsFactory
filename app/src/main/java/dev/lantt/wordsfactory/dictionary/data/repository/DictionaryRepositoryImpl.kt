@@ -48,7 +48,7 @@ class DictionaryRepositoryImpl(
         }
     }
 
-    override suspend fun getAllSavedDictionaryWords(): Flow<List<DictionaryWord>> {
+    override fun getAllSavedDictionaryWords(): Flow<List<DictionaryWord>> {
         return dictionaryDao.getAllDictionaryWordsWithMeanings().map { dbEntities ->
             dbEntities.map { dbEntity ->
                 DictionaryWord(

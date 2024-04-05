@@ -1,25 +1,29 @@
 package dev.lantt.wordsfactory.video.data.datasource
 
 import android.content.Context
-import androidx.datastore.preferences.createDataStore
-import androidx.datastore.preferences.edit
-import androidx.datastore.preferences.preferencesKey
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.runBlocking
 
-class VideoDataSource(context: Context) {
+const val DATA_STORE_NAME = "video_data_store"
 
-    private val dataStore = context.createDataStore(DATA_STORE_NAME)
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DATA_STORE_NAME)
+
+class VideoDataSource(private val context: Context) {
 
     fun fetchUrl(): String? {
         val url: MutableStateFlow<String?> = MutableStateFlow(null)
 
         runBlocking {
             url.update {
-                dataStore.data.map { prefs ->
+                context.dataStore.data.map { prefs ->
                     prefs[FIELD_VIDEO_URL]
                 }.first()
             }
@@ -29,16 +33,14 @@ class VideoDataSource(context: Context) {
     }
 
     suspend fun saveUrl(url: String) {
-        dataStore.edit { prefs ->
+        context.dataStore.edit { prefs ->
             prefs[FIELD_VIDEO_URL] = url
         }
     }
 
     private companion object {
-        const val DATA_STORE_NAME = "video_data_store"
-
         const val FIELD_VIDEO_URL_KEY = "url"
-        val FIELD_VIDEO_URL = preferencesKey<String>(FIELD_VIDEO_URL_KEY)
+        val FIELD_VIDEO_URL = stringPreferencesKey(FIELD_VIDEO_URL_KEY)
     }
 
 }

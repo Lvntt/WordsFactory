@@ -1,26 +1,30 @@
 package dev.lantt.wordsfactory.core.data.datasource
 
 import android.content.Context
-import androidx.datastore.preferences.createDataStore
-import androidx.datastore.preferences.edit
-import androidx.datastore.preferences.preferencesKey
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.runBlocking
 
-// TODO SettingsManager in domain?
-class SettingsDataSource(context: Context) {
+const val DATA_STORE_NAME = "settings_data_store"
 
-    private val dataStore = context.createDataStore(DATA_STORE_NAME)
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DATA_STORE_NAME)
+
+// TODO SettingsManager in domain?
+class SettingsDataSource(private val context: Context) {
 
     fun isOnboardingPassed(): Boolean {
         val isOnboardingPassed: MutableStateFlow<Boolean?> = MutableStateFlow(false)
 
         runBlocking {
             isOnboardingPassed.update {
-                dataStore.data.map { prefs ->
+                context.dataStore.data.map { prefs ->
                     prefs[FIELD_IS_ONBOARDING_PASSED]
                 }.first()
             }
@@ -30,16 +34,14 @@ class SettingsDataSource(context: Context) {
     }
 
     suspend fun setIsOnboardingPassed(isOnboardingPassed: Boolean) {
-        dataStore.edit { prefs ->
+        context.dataStore.edit { prefs ->
             prefs[FIELD_IS_ONBOARDING_PASSED] = isOnboardingPassed
         }
     }
 
     private companion object {
-        const val DATA_STORE_NAME = "settings_data_store"
-
         const val FIELD_IS_ONBOARDING_PASSED_KEY = "is_onboarding_passed"
-        val FIELD_IS_ONBOARDING_PASSED = preferencesKey<Boolean>(FIELD_IS_ONBOARDING_PASSED_KEY)
+        val FIELD_IS_ONBOARDING_PASSED = booleanPreferencesKey(FIELD_IS_ONBOARDING_PASSED_KEY)
     }
 
 }
