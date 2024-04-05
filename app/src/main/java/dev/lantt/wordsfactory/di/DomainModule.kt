@@ -2,6 +2,7 @@ package dev.lantt.wordsfactory.di
 
 import dev.lantt.wordsfactory.auth.domain.usecase.LoginUserUseCase
 import dev.lantt.wordsfactory.auth.domain.usecase.RegisterUserUseCase
+import dev.lantt.wordsfactory.dictionary.domain.usecase.GetAllSavedDictionaryWordsUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.PlayAudioUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.SaveDictionaryWordUseCase
@@ -37,5 +38,7 @@ fun provideDomainModule(): Module = module {
     factory { CheckUserLoginUseCase(get()) }
 
     factory { SetIsOnboardingPassedUseCase(get()) }
+
+    factory { GetAllSavedDictionaryWordsUseCase(get()) }
 
 }

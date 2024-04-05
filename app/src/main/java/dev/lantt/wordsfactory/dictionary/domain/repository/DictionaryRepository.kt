@@ -9,6 +9,6 @@ interface DictionaryRepository {
 
     suspend fun saveDictionaryWord(word: DictionaryWord)
 
-    suspend fun getAllSavedDictionaryWords(): Flow<List<DictionaryWord>>
+    fun getAllSavedDictionaryWords(): Flow<List<DictionaryWord>>
 
 }
