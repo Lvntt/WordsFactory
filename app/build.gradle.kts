@@ -64,7 +64,7 @@ dependencies {
     val gsonConverterVersion = "2.9.0"
     val roomVersion = "2.6.1"
     val lottieVersion = "6.4.0"
-    val dataStoreVersion = "1.0.0-alpha01"
+    val dataStoreVersion = "1.0.0"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val koinCore = "io.insert-koin:koin-core:$koinVersion"
