@@ -5,5 +5,6 @@ data class DictionaryWord(
     val phonetic: String?,
     val phoneticAudio: String?,
     val partsOfSpeech: List<String>,
-    val meanings: List<Meaning>
+    val meanings: List<Meaning>,
+    val isCached: Boolean
 )

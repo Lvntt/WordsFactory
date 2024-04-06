@@ -103,14 +103,29 @@ fun DictionaryScreen(
         Spacer(modifier = Modifier.weight(1f))
 
         if (uiState is DictionaryUiState.Success) {
-            PrimaryButton(
-                modifier = Modifier.padding(
-                    horizontal = PaddingRegular,
-                    vertical = PaddingSmall
-                ),
-                onClick = viewModel::onSaveDictionaryWord,
-                text = stringResource(id = R.string.addToDictionary)
-            )
+            val word = (uiState as DictionaryUiState.Success).word
+            if (word.isCached) {
+                PrimaryButton(
+                    modifier = Modifier.padding(
+                        horizontal = PaddingRegular,
+                        vertical = PaddingSmall
+                    ),
+                    onClick = {
+                        // TODO remove from dictionary
+                    },
+                    text = stringResource(id = R.string.addedToDictionary),
+                    icon = ImageVector.vectorResource(id = R.drawable.ic_tick)
+                )
+            } else {
+                PrimaryButton(
+                    modifier = Modifier.padding(
+                        horizontal = PaddingRegular,
+                        vertical = PaddingSmall
+                    ),
+                    onClick = viewModel::onSaveDictionaryWord,
+                    text = stringResource(id = R.string.addToDictionary)
+                )
+            }
         }
     }
 }

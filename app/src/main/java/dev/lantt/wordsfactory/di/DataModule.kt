@@ -27,9 +27,6 @@ import org.koin.dsl.module
 
 private fun provideFirebaseAuth(): FirebaseAuth = Firebase.auth
 
-private fun provideDictionaryWordMapper(context: Context): DictionaryWordMapper =
-    DictionaryWordMapper(context)
-
 private fun provideAuthRepository(firebaseAuth: FirebaseAuth): AuthRepository =
     FirebaseAuthRepository(firebaseAuth)
 
@@ -75,7 +72,7 @@ fun provideDataModule(): Module = module {
 
     single { provideFirebaseAuth() }
 
-    single { provideDictionaryWordMapper(androidContext().applicationContext) }
+    single { DictionaryWordMapper() }
 
     single { provideAuthRepository(get()) }
 

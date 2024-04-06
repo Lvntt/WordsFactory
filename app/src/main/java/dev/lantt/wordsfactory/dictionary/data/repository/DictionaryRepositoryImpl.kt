@@ -1,5 +1,8 @@
 package dev.lantt.wordsfactory.dictionary.data.repository
 
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.toLowerCase
 import dev.lantt.wordsfactory.dictionary.data.dao.DictionaryDao
 import dev.lantt.wordsfactory.dictionary.data.mapper.DictionaryWordMapper
 import dev.lantt.wordsfactory.dictionary.data.model.local.DefinitionEntity
@@ -19,14 +22,37 @@ class DictionaryRepositoryImpl(
     private val dictionaryDao: DictionaryDao
 ) : DictionaryRepository {
 
+    // TODO to mapper
     override suspend fun getDictionaryWord(query: String): DictionaryWord {
+        val cachedDictionaryWord = dictionaryDao.getDictionaryWordWithMeanings(query.toLowerCase(Locale.current))
+        if (cachedDictionaryWord != null) {
+            return DictionaryWord(
+                word = cachedDictionaryWord.dictionaryWord.word.capitalize(Locale.current),
+                phonetic = cachedDictionaryWord.dictionaryWord.phonetic,
+                phoneticAudio = cachedDictionaryWord.dictionaryWord.phoneticAudio,
+                partsOfSpeech = cachedDictionaryWord.meanings.map { it.partOfSpeech.capitalize(Locale.current) },
+                meanings = cachedDictionaryWord.meanings.map { meaningDto ->
+                    Meaning(
+                        partOfSpeech = meaningDto.partOfSpeech.capitalize(Locale.current),
+                        definition = Definition(
+                            definition = meaningDto.definition.definition,
+                            example = meaningDto.definition.example
+                        )
+                    )
+                },
+                isCached = true
+            )
+        }
+
         val apiResult = dictionaryApiService.getDictionaryWord(query)
         return dictionaryWordMapper.mapDtoToDomain(apiResult[0])
     }
 
     override suspend fun saveDictionaryWord(word: DictionaryWord) {
+        val wordText = word.word.toLowerCase(Locale.current)
+
         val dictionaryWordEntity = DictionaryWordEntity(
-            word = word.word,
+            word = wordText,
             phonetic = word.phonetic,
             phoneticAudio = word.phoneticAudio
         )
@@ -40,7 +66,7 @@ class DictionaryRepositoryImpl(
             dictionaryDao.upsertDefinition(definitionEntity)
 
             val meaningEntity = MeaningEntity(
-                word = word.word,
+                word = wordText,
                 partOfSpeech = meaning.partOfSpeech,
                 definition = definitionEntity
             )
@@ -51,8 +77,10 @@ class DictionaryRepositoryImpl(
     override fun getAllSavedDictionaryWords(): Flow<List<DictionaryWord>> {
         return dictionaryDao.getAllDictionaryWordsWithMeanings().map { dbEntities ->
             dbEntities.map { dbEntity ->
+                val wordText = dbEntity.dictionaryWord.word.toLowerCase(Locale.current)
+
                 DictionaryWord(
-                    word = dbEntity.dictionaryWord.word,
+                    word = wordText,
                     phonetic = dbEntity.dictionaryWord.phonetic,
                     phoneticAudio = dbEntity.dictionaryWord.phoneticAudio,
                     partsOfSpeech = dbEntity.meanings.map { it.partOfSpeech }.distinct(),
@@ -64,7 +92,8 @@ class DictionaryRepositoryImpl(
                                 example = dbMeaningEntity.definition.example
                             )
                         )
-                    }
+                    },
+                    isCached = true
                 )
             }
         }

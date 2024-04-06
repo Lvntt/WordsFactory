@@ -1,21 +1,17 @@
 package dev.lantt.wordsfactory.dictionary.data.mapper
 
-import android.content.Context
-import dev.lantt.wordsfactory.dictionary.data.model.local.DictionaryWordEntity
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
 import dev.lantt.wordsfactory.dictionary.data.model.remote.DictionaryWordDto
 import dev.lantt.wordsfactory.dictionary.domain.entity.Definition
 import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
 import dev.lantt.wordsfactory.dictionary.domain.entity.Meaning
 
-class DictionaryWordMapper(
-    context: Context
-) {
-
-    private val locale = context.resources.configuration.locales[0]
+class DictionaryWordMapper {
 
     fun mapDtoToDomain(data: DictionaryWordDto): DictionaryWord {
         with(data) {
-            val word = word.capitalize()
+            val word = word.capitalize(Locale.current)
             val phonetic = getPhonetic()
             val phoneticAudio = getPhoneticAudio()
             val partsOfSpeech = getPartsOfSpeech()
@@ -26,13 +22,10 @@ class DictionaryWordMapper(
                 phonetic = phonetic,
                 phoneticAudio = phoneticAudio,
                 partsOfSpeech = partsOfSpeech,
-                meanings = meanings
+                meanings = meanings,
+                isCached = false
             )
         }
-    }
-
-    private fun String.capitalize(): String {
-        return replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else it.toString() }
     }
 
     private fun DictionaryWordDto.getPhonetic(): String? {
@@ -44,7 +37,7 @@ class DictionaryWordMapper(
             it.text != null
         }
 
-        return phonetic?.text?.capitalize()
+        return phonetic?.text?.capitalize(Locale.current)
     }
 
     private fun DictionaryWordDto.getPhoneticAudio(): String? {
@@ -56,13 +49,13 @@ class DictionaryWordMapper(
     }
 
     private fun DictionaryWordDto.getPartsOfSpeech(): List<String> {
-        return meanings.map { it.partOfSpeech.capitalize() }
+        return meanings.map { it.partOfSpeech.capitalize(Locale.current) }
     }
 
     private fun DictionaryWordDto.getMeanings(): List<Meaning> {
         return meanings.map { meaningDto ->
             Meaning(
-                partOfSpeech = meaningDto.partOfSpeech.capitalize(),
+                partOfSpeech = meaningDto.partOfSpeech.capitalize(Locale.current),
                 definition = Definition(
                     definition = meaningDto.definitions[0].definition,
                     example = meaningDto.definitions[0].example

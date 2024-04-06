@@ -26,4 +26,8 @@ interface DictionaryDao {
     @Query("SELECT * FROM dictionary_words")
     fun getAllDictionaryWordsWithMeanings(): Flow<List<DictionaryWordWithMeanings>>
 
+    @Transaction
+    @Query("SELECT * FROM dictionary_words WHERE word = :word")
+    fun getDictionaryWordWithMeanings(word: String): DictionaryWordWithMeanings?
+
 }
