@@ -1,6 +1,7 @@
 package dev.lantt.wordsfactory.dictionary.presentation.screen
 
 import android.util.Log
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -104,27 +105,32 @@ fun DictionaryScreen(
 
         if (uiState is DictionaryUiState.Success) {
             val word = (uiState as DictionaryUiState.Success).word
-            if (word.isCached) {
-                PrimaryButton(
-                    modifier = Modifier.padding(
-                        horizontal = PaddingRegular,
-                        vertical = PaddingSmall
-                    ),
-                    onClick = {
-                        // TODO remove from dictionary
-                    },
-                    text = stringResource(id = R.string.addedToDictionary),
-                    icon = ImageVector.vectorResource(id = R.drawable.ic_tick)
-                )
-            } else {
-                PrimaryButton(
-                    modifier = Modifier.padding(
-                        horizontal = PaddingRegular,
-                        vertical = PaddingSmall
-                    ),
-                    onClick = viewModel::onSaveDictionaryWord,
-                    text = stringResource(id = R.string.addToDictionary)
-                )
+            AnimatedContent(
+                targetState = word.isCached,
+                label = "add_button_animation"
+            ) { isCached ->
+                if (isCached) {
+                    PrimaryButton(
+                        modifier = Modifier.padding(
+                            horizontal = PaddingRegular,
+                            vertical = PaddingSmall
+                        ),
+                        onClick = {
+                            // TODO remove from dictionary
+                        },
+                        text = stringResource(id = R.string.addedToDictionary),
+                        icon = ImageVector.vectorResource(id = R.drawable.ic_tick)
+                    )
+                } else {
+                    PrimaryButton(
+                        modifier = Modifier.padding(
+                            horizontal = PaddingRegular,
+                            vertical = PaddingSmall
+                        ),
+                        onClick = viewModel::onSaveDictionaryWord,
+                        text = stringResource(id = R.string.addToDictionary)
+                    )
+                }
             }
         }
     }

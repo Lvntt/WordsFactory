@@ -62,6 +62,9 @@ class DictionaryViewModel(
         viewModelScope.launch(defaultDispatcher + dictionaryExceptionHandler) {
             val currentWord = (_dictionaryUiState.value as DictionaryUiState.Success).word
             saveDictionaryWordUseCase(currentWord)
+            _dictionaryUiState.update {
+                DictionaryUiState.Success(currentWord.copy(isCached = true))
+            }
             // TODO state?
         }
     }
