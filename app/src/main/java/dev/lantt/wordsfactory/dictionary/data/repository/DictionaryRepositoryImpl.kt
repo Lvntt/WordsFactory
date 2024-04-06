@@ -39,6 +39,18 @@ class DictionaryRepositoryImpl(
         }
     }
 
+    override suspend fun deleteDictionaryWord(word: String) {
+        val cachedDictionaryWord = dictionaryDao.getDictionaryWordWithMeanings(word.toLowerCase(Locale.current))
+        if (cachedDictionaryWord != null) {
+            dictionaryDao.deleteDictionaryWord(cachedDictionaryWord.dictionaryWord)
+
+            cachedDictionaryWord.meanings.forEach { meaning ->
+                dictionaryDao.deleteDefinition(meaning.definition)
+                dictionaryDao.deleteMeaning(meaning)
+            }
+        }
+    }
+
     override fun getAllSavedDictionaryWords(): Flow<List<DictionaryWord>> {
         return dictionaryDao.getAllDictionaryWordsWithMeanings().map { dbEntities ->
             dbEntities.map { dbEntity ->

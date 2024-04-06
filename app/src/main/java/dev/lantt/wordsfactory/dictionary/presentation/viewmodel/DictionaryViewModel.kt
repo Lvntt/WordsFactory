@@ -2,6 +2,7 @@ package dev.lantt.wordsfactory.dictionary.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.lantt.wordsfactory.dictionary.domain.usecase.DeleteDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetAllSavedDictionaryWordsUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.PlayAudioUseCase
@@ -21,6 +22,7 @@ import kotlinx.coroutines.launch
 class DictionaryViewModel(
     private val getDictionaryWordUseCase: GetDictionaryWordUseCase,
     private val saveDictionaryWordUseCase: SaveDictionaryWordUseCase,
+    private val deleteDictionaryWordUseCase: DeleteDictionaryWordUseCase,
     private val getAllSavedDictionaryWordsUseCase: GetAllSavedDictionaryWordsUseCase,
     private val playAudioUseCase: PlayAudioUseCase,
     private val stopAudioUseCase: StopAudioUseCase,
@@ -65,7 +67,16 @@ class DictionaryViewModel(
             _dictionaryUiState.update {
                 DictionaryUiState.Success(currentWord.copy(isCached = true))
             }
-            // TODO state?
+        }
+    }
+
+    fun onDeleteDictionaryWord() {
+        viewModelScope.launch(defaultDispatcher + dictionaryExceptionHandler) {
+            val currentWord = (_dictionaryUiState.value as DictionaryUiState.Success).word
+            deleteDictionaryWordUseCase(currentWord.word)
+            _dictionaryUiState.update {
+                DictionaryUiState.Success(currentWord.copy(isCached = false))
+            }
         }
     }
 

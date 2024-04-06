@@ -1,6 +1,7 @@
 package dev.lantt.wordsfactory.dictionary.data.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
@@ -16,11 +17,20 @@ interface DictionaryDao {
     @Upsert
     suspend fun upsertDictionaryWord(dictionaryWord: DictionaryWordEntity)
 
+    @Delete
+    suspend fun deleteDictionaryWord(dictionaryWord: DictionaryWordEntity)
+
     @Upsert
     suspend fun upsertMeaning(meaning: MeaningEntity)
 
+    @Delete
+    suspend fun deleteMeaning(meaning: MeaningEntity)
+
     @Upsert
     suspend fun upsertDefinition(definition: DefinitionEntity)
+
+    @Delete
+    suspend fun deleteDefinition(definition: DefinitionEntity)
 
     @Transaction
     @Query("SELECT * FROM dictionary_words")

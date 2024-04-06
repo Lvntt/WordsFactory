@@ -61,6 +61,7 @@ fun DictionaryScreen(
             ),
             value = dictionaryState.query,
             onValueChange = viewModel::onQueryChange,
+            // TODO add cross to delete the query
             trailingIcon = ImageVector.vectorResource(id = R.drawable.ic_search),
             trailingIconDescription = stringResource(id = R.string.search),
             onTrailingIconClick = {
@@ -115,9 +116,7 @@ fun DictionaryScreen(
                             horizontal = PaddingRegular,
                             vertical = PaddingSmall
                         ),
-                        onClick = {
-                            // TODO remove from dictionary
-                        },
+                        onClick = viewModel::onDeleteDictionaryWord,
                         text = stringResource(id = R.string.addedToDictionary),
                         icon = ImageVector.vectorResource(id = R.drawable.ic_tick)
                     )
