@@ -12,8 +12,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -42,6 +45,7 @@ fun DictionaryScreen(
     viewModel: DictionaryViewModel = koinViewModel()
 ) {
     val focusManager = LocalFocusManager.current
+    val focusRequester = remember { FocusRequester() }
     val dictionaryState by viewModel.dictionaryState.collectAsStateWithLifecycle()
     val uiState by viewModel.dictionaryUiState.collectAsStateWithLifecycle()
 
@@ -53,20 +57,30 @@ fun DictionaryScreen(
                 focusManager.clearFocus()
             }
     ) {
+        val canClearQuery = uiState is DictionaryUiState.Success && dictionaryState.canClearQuery
+
         InputTextFieldWithAction(
-            modifier = Modifier.padding(
+            modifier = Modifier
+                .padding(
                 top = PaddingRegular,
                 start = PaddingMedium,
                 end = PaddingMedium
-            ),
+            )
+                .focusRequester(focusRequester),
             value = dictionaryState.query,
             onValueChange = viewModel::onQueryChange,
-            // TODO add cross to delete the query
-            trailingIcon = ImageVector.vectorResource(id = R.drawable.ic_search),
+            trailingIcon = if (canClearQuery)
+                ImageVector.vectorResource(id = R.drawable.ic_close) else
+                ImageVector.vectorResource(id = R.drawable.ic_search),
             trailingIconDescription = stringResource(id = R.string.search),
             onTrailingIconClick = {
-                viewModel.onSearch()
-                focusManager.clearFocus()
+                if (canClearQuery) {
+                    viewModel.onClearQuery()
+                    focusRequester.requestFocus()
+                } else {
+                    viewModel.onSearch()
+                    focusManager.clearFocus()
+                }
             }
         )
 

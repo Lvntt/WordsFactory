@@ -28,7 +28,8 @@ class DictionaryWordMapper {
                 phoneticAudio = phoneticAudio,
                 partsOfSpeech = partsOfSpeech,
                 meanings = meanings,
-                isCached = false
+                isCached = false,
+                learningCoefficient = 0
             )
         }
     }
@@ -44,7 +45,8 @@ class DictionaryWordMapper {
             phoneticAudio = entity.dictionaryWord.phoneticAudio,
             partsOfSpeech = partsOfSpeech,
             meanings = meanings,
-            isCached = true
+            isCached = true,
+            learningCoefficient = entity.dictionaryWord.learningCoefficient
         )
     }
 
@@ -52,7 +54,8 @@ class DictionaryWordMapper {
         return DictionaryWordEntity(
             word = domain.word.toLowerCase(Locale.current),
             phonetic = domain.phonetic,
-            phoneticAudio = domain.phoneticAudio
+            phoneticAudio = domain.phoneticAudio,
+            learningCoefficient = domain.learningCoefficient
         )
     }
 

@@ -45,7 +45,19 @@ class DictionaryViewModel(
 
     fun onQueryChange(query: String) {
         _dictionaryState.update {
-            it.copy(query = query)
+            it.copy(
+                query = query,
+                canClearQuery = false
+            )
+        }
+    }
+
+    fun onClearQuery() {
+        _dictionaryState.update {
+            it.copy(
+                query = "",
+                canClearQuery = false
+            )
         }
     }
 
@@ -56,6 +68,9 @@ class DictionaryViewModel(
                 DictionaryUiState.Success(
                     getDictionaryWordUseCase(_dictionaryState.value.query)
                 )
+            }
+            _dictionaryState.update {
+                it.copy(canClearQuery = true)
             }
         }
     }

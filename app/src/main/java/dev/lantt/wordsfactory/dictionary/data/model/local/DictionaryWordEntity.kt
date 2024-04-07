@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class DictionaryWordEntity(
     @PrimaryKey val word: String,
     val phonetic: String?,
-    val phoneticAudio: String?
+    val phoneticAudio: String?,
+    val learningCoefficient: Int
 )
