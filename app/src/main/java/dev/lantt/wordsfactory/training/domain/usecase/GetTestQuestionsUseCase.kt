@@ -28,12 +28,13 @@ class GetTestQuestionsUseCase {
                 isCached = true,
                 learningCoefficient = 0
             ),
+            correctWordDefinition = "The practice or skill of preparing food by combining, mixing, and heating ingredients.",
             options = listOf("cooking", "smiling", "freezing")
         )
     )
 
     operator fun invoke(dictionaryWords: List<DictionaryWord>): List<Question> {
-        return if (dictionaryWords.size < MIN_WORDS_FOR_TEST) {
+         return if (dictionaryWords.size < MIN_WORDS_FOR_TEST) {
             mockQuestions
         } else {
             val questionsList = mutableListOf<Question>()
@@ -46,10 +47,9 @@ class GetTestQuestionsUseCase {
 
                 val question = Question(
                     correctWord = word,
+                    correctWordDefinition = word.meanings.random().definition.definition,
                     options = incorrectOptions + word.word
                 )
-                // correctWord = word.word,
-                // correctWordDefinition = word.meanings.random().definition.definition,
 
                 questionsList.add(question)
             }

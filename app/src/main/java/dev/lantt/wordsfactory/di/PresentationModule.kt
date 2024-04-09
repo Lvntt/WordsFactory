@@ -29,6 +29,6 @@ fun providePresentationModule(): Module = module {
 
     viewModel { TrainingViewModel(get()) }
 
-    viewModel { TestViewModel() }
+    viewModel { TestViewModel(get(), get(), get(), Dispatchers.IO) }
 
 }

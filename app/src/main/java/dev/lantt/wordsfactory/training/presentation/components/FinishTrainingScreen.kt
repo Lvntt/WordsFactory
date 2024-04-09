@@ -21,9 +21,11 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingLarge
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingRegular
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
+import dev.lantt.wordsfactory.training.presentation.state.TestStatistics
 
 @Composable
 fun FinishTrainingScreen(
+    testStatistics: TestStatistics,
     onTrainAgain: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -51,13 +53,13 @@ fun FinishTrainingScreen(
         Spacer(modifier = Modifier.height(PaddingSmall))
 
         Text(
-            text = stringResource(id = R.string.correctWords, 9),
+            text = stringResource(id = R.string.correctWords, testStatistics.correctWords),
             style = ParagraphMedium,
             color = InkDarkGray
         )
 
         Text(
-            text = stringResource(id = R.string.incorrectWords, 1),
+            text = stringResource(id = R.string.incorrectWords, testStatistics.incorrectWords),
             style = ParagraphMedium,
             color = InkDarkGray
         )

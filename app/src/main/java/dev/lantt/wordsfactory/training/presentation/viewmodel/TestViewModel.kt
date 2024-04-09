@@ -1,22 +1,25 @@
 package dev.lantt.wordsfactory.training.presentation.viewmodel
 
 import android.util.Log
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetAllSavedDictionaryWordsUseCase
 import dev.lantt.wordsfactory.training.domain.entity.Question
 import dev.lantt.wordsfactory.training.domain.usecase.GetTestQuestionsUseCase
 import dev.lantt.wordsfactory.training.domain.usecase.HandleOptionChoiceUseCase
+import dev.lantt.wordsfactory.training.presentation.state.QuestionState
 import dev.lantt.wordsfactory.training.presentation.state.TestState
+import dev.lantt.wordsfactory.training.presentation.state.TestStatistics
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
 class TestViewModel(
@@ -29,38 +32,59 @@ class TestViewModel(
     private val _testState = MutableStateFlow<TestState>(TestState.Loading)
     val testState = _testState.asStateFlow()
 
+    private val _testStatistics = MutableStateFlow(TestStatistics())
+
     private val _questions = MutableStateFlow<List<Question>>(emptyList())
     private var questionJob: Job? = null
 
-    private val savedDictionaryWords = getAllSavedDictionaryWordsUseCase()
-        .stateIn(
-            viewModelScope,
-            // TODO SharingStarted mode?
-            SharingStarted.Lazily,
-            emptyList()
-        )
-
     private val testExceptionHandler = CoroutineExceptionHandler { _, exception ->
-        Log.e("TestViewModel", exception.message.toString())
+        Log.e(TAG, exception.message.toString())
     }
 
     init {
-        val questions = getTestQuestionsUseCase(savedDictionaryWords.value)
-        _questions.update { questions }
+        startTest()
+    }
 
-        updateCurrentQuestionJob()
+    private fun startTest() {
+        viewModelScope.launch {
+            // TODO get only 10 words max
+            getAllSavedDictionaryWordsUseCase().collect {
+                val questions = getTestQuestionsUseCase(it)
+                _questions.update { questions }
+
+                updateCurrentQuestionJob()
+                this.coroutineContext.job.cancel()
+            }
+        }
     }
 
     private fun updateCurrentQuestionJob() {
         questionJob = viewModelScope.launch {
             while (_questions.value.isNotEmpty()) {
+                Log.d(TAG, _questions.value.size.toString())
                 val currentQuestion = _questions.value.last()
-                _questions.update { _questions.value.dropLast(1) }
-                _testState.update { TestState.Ongoing(currentQuestion) }
+                _testState.update {
+                    val testState = it as? TestState.Ongoing
+                    TestState.Ongoing(
+                        QuestionState(
+                            currentQuestion = currentQuestion,
+                            correctWordDefinition = currentQuestion.correctWordDefinition.capitalize(Locale.current),
+                            selectedWord = null,
+                            number = testState?.question?.number?.plus(1) ?: 1,
+                            total = testState?.question?.total ?: _questions.value.size
+                        )
+                    )
+                }
+                val updatedQuestions = _questions.value.dropLast(1)
+                _questions.update { updatedQuestions }
 
                 delay(NEW_QUESTION_EMISSION_DELAY_MS)
-                // TODO handleOptionChoice
+                handleOptionChoiceUseCase(currentQuestion, NO_CHOICE_STRING)
+                _testStatistics.update {
+                    it.copy(incorrectWords = it.incorrectWords + 1)
+                }
             }
+            onFinishTraining()
         }
     }
 
@@ -70,21 +94,44 @@ class TestViewModel(
     ) {
         viewModelScope.launch(defaultDispatcher + testExceptionHandler) {
             handleOptionChoiceUseCase(question, chosenOption)
+
+            _testStatistics.update {
+                if (question.correctWord.word == chosenOption) {
+                    it.copy(correctWords = it.correctWords + 1)
+                } else {
+                    it.copy(incorrectWords = it.incorrectWords + 1)
+                }
+            }
+
+            val testState = _testState.value as? TestState.Ongoing
+            testState?.let {
+                _testState.update {
+                    testState.copy(
+                        question = testState.question.copy(selectedWord = chosenOption)
+                    )
+                }
+            }
             questionJob?.cancel()
             updateCurrentQuestionJob()
         }
     }
 
-    fun onFinishTraining() {
-        _testState.update { TestState.Finished }
+    private fun onFinishTraining() {
+        _testState.update {
+            TestState.Finished(_testStatistics.value)
+        }
     }
 
     fun onTrainAgain() {
         _testState.update { TestState.Loading }
+        _testStatistics.update { TestStatistics() }
+        startTest()
     }
 
     private companion object {
+        const val TAG = "TestViewModel"
         const val NEW_QUESTION_EMISSION_DELAY_MS = 5000L
+        const val NO_CHOICE_STRING = "no_choice"
     }
 
 }

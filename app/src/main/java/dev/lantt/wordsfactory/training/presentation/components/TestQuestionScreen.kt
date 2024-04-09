@@ -22,12 +22,13 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingRegular
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphLarge
-import dev.lantt.wordsfactory.training.domain.entity.Question
+import dev.lantt.wordsfactory.training.presentation.state.QuestionState
+import dev.lantt.wordsfactory.training.presentation.viewmodel.TestViewModel
 
 @Composable
 fun TestQuestionScreen(
-    question: Question,
-    onFinishTraining: () -> Unit,
+    question: QuestionState,
+    viewModel: TestViewModel,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -41,7 +42,7 @@ fun TestQuestionScreen(
             Spacer(modifier = Modifier.height(PaddingMedium))
 
             Text(
-                text = stringResource(id = R.string.wordsProgress, 1, 10),
+                text = stringResource(id = R.string.wordsProgress, question.number, question.total),
                 style = ParagraphLarge,
                 color = InkDarkGray
             )
@@ -50,7 +51,7 @@ fun TestQuestionScreen(
 
             Text(
                 modifier = Modifier.heightIn(max = 300.dp),
-                text = stringResource(id = R.string.testQuestionPlaceholder),
+                text = question.correctWordDefinition,
                 style = HeadingH4,
                 color = InkDark,
                 textAlign = TextAlign.Center,
@@ -61,28 +62,38 @@ fun TestQuestionScreen(
 
             TestOption(
                 optionOrder = stringResource(id = R.string.aOption),
-                optionText = stringResource(id = R.string.cooking)
+                optionText = question.currentQuestion.options[0],
+                onChooseOption = {
+                    viewModel.onChooseOption(question.currentQuestion, it)
+                },
+                isSelected = question.selectedWord == question.currentQuestion.options[0]
             )
 
             Spacer(modifier = Modifier.height(PaddingMedium))
 
             TestOption(
                 optionOrder = stringResource(id = R.string.bOption),
-                optionText = stringResource(id = R.string.smiling)
+                optionText = question.currentQuestion.options[1],
+                onChooseOption = {
+                    viewModel.onChooseOption(question.currentQuestion, it)
+                },
+                isSelected = question.selectedWord == question.currentQuestion.options[1]
             )
 
             Spacer(modifier = Modifier.height(PaddingMedium))
 
             TestOption(
                 optionOrder = stringResource(id = R.string.cOption),
-                optionText = stringResource(id = R.string.freezing)
+                optionText = question.currentQuestion.options[2],
+                onChooseOption = {
+                    viewModel.onChooseOption(question.currentQuestion, it)
+                },
+                isSelected = question.selectedWord == question.currentQuestion.options[2]
             )
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
-        OngoingTrainingTimerIndicator(
-            onFinishTraining = onFinishTraining
-        )
+        OngoingTrainingTimerIndicator()
     }
 }

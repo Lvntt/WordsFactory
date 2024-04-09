@@ -18,19 +18,14 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.InkGray
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
 
 @Composable
-fun OngoingTrainingTimerIndicator(
-    onFinishTraining: () -> Unit,
-) {
+fun OngoingTrainingTimerIndicator() {
     var progress by remember { mutableFloatStateOf(1f) }
 
     val progressAnimation by animateFloatAsState(
         targetValue = progress,
+        // TODO 5000 to constants
         animationSpec = tween(5000, easing = LinearEasing),
         label = "progress_animation",
-        finishedListener = {
-            // TODO next question
-            onFinishTraining()
-        }
     )
 
     LinearProgressIndicator(

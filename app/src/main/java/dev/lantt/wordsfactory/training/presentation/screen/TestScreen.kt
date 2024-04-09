@@ -1,8 +1,12 @@
 package dev.lantt.wordsfactory.training.presentation.screen
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -25,16 +29,22 @@ fun TestScreen(
     ) { state ->
         when (state) {
             TestState.Loading -> {
-                // TODO
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
             }
             is TestState.Ongoing -> TestQuestionScreen(
-                question =
-                modifier = modifier,
-                onFinishTraining = viewModel::onFinishTraining
+                question = state.question,
+                viewModel = viewModel,
+                modifier = modifier
             )
-            TestState.Finished -> FinishTrainingScreen(
-                modifier = modifier,
-                onTrainAgain = viewModel::onTrainAgain
+            is TestState.Finished -> FinishTrainingScreen(
+                testStatistics = state.testStatistics,
+                onTrainAgain = viewModel::onTrainAgain,
+                modifier = modifier
             )
         }
     }
