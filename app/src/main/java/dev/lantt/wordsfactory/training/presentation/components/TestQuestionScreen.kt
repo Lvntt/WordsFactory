@@ -22,9 +22,11 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingRegular
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingSmall
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphLarge
+import dev.lantt.wordsfactory.training.domain.entity.Question
 
 @Composable
 fun TestQuestionScreen(
+    question: Question,
     onFinishTraining: () -> Unit,
     modifier: Modifier = Modifier
 ) {

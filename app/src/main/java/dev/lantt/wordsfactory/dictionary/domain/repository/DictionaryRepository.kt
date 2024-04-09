@@ -11,6 +11,8 @@ interface DictionaryRepository {
 
     suspend fun deleteDictionaryWord(word: String)
 
+    suspend fun updateDictionaryWord(word: DictionaryWord)
+
     fun getAllSavedDictionaryWords(): Flow<List<DictionaryWord>>
 
 }

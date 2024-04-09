@@ -51,6 +51,11 @@ class DictionaryRepositoryImpl(
         }
     }
 
+    override suspend fun updateDictionaryWord(word: DictionaryWord) {
+        val dictionaryWordEntity = dictionaryWordMapper.mapDomainToDictionaryWordEntity(word)
+        dictionaryDao.upsertDictionaryWord(dictionaryWordEntity)
+    }
+
     override fun getAllSavedDictionaryWords(): Flow<List<DictionaryWord>> {
         return dictionaryDao.getAllDictionaryWordsWithMeanings().map { dbEntities ->
             dbEntities.map { dbEntity ->

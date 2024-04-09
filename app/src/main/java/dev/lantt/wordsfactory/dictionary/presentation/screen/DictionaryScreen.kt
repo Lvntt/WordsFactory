@@ -105,6 +105,7 @@ fun DictionaryScreen(
                 )
             }
             is DictionaryUiState.Error -> {
+                // TODO separate not found error from others
                 ErrorContent()
                 Log.e("DictionaryScreen", (uiState as DictionaryUiState.Error).message.toString())
             }

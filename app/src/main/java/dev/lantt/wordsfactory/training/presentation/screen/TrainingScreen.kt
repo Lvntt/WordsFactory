@@ -39,6 +39,7 @@ fun TrainingScreen(
     viewModel: TrainingViewModel = koinViewModel()
 ) {
     val trainingState by viewModel.trainingState.collectAsStateWithLifecycle()
+    val savedDictionaryWords by viewModel.savedDictionaryWords.collectAsStateWithLifecycle()
     
     LaunchedEffect(Unit) {
         viewModel.trainingEvents.collect { event ->
@@ -60,7 +61,7 @@ fun TrainingScreen(
         val dictionaryWordsTitle = buildAnnotatedString {
             append(stringResource(id = R.string.dictionaryWordsTitleFirst))
             withStyle(style = SpanStyle(color = PrimaryColor)) {
-                append(" 25 ")
+                append(" ${savedDictionaryWords.size} ")
             }
             append(stringResource(id = R.string.dictionaryWordsTitleLast))
         }

@@ -24,7 +24,11 @@ fun TestScreen(
         label = "test_crossfade"
     ) { state ->
         when (state) {
-            TestState.Ongoing -> TestQuestionScreen(
+            TestState.Loading -> {
+                // TODO
+            }
+            is TestState.Ongoing -> TestQuestionScreen(
+                question =
                 modifier = modifier,
                 onFinishTraining = viewModel::onFinishTraining
             )
