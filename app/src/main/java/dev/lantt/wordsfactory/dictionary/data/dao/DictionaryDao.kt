@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import androidx.room.Upsert
 import dev.lantt.wordsfactory.dictionary.data.model.local.DefinitionEntity
 import dev.lantt.wordsfactory.dictionary.data.model.local.DictionaryWordEntity
@@ -16,6 +17,9 @@ interface DictionaryDao {
 
     @Upsert
     suspend fun upsertDictionaryWord(dictionaryWord: DictionaryWordEntity)
+
+    @Update
+    suspend fun updateDictionaryWord(dictionaryWord: DictionaryWordEntity)
 
     @Delete
     suspend fun deleteDictionaryWord(dictionaryWord: DictionaryWordEntity)
