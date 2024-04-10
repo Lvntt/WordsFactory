@@ -64,8 +64,8 @@ class DictionaryRepositoryImpl(
         }
     }
 
-    override fun getLeastLearntDictionaryWords(wordsCount: Int): Flow<List<DictionaryWord>> {
-        return dictionaryDao.getLeastLearntWordsWithMeanings(wordsCount).map { dbEntities ->
+    override fun getLeastLearntDictionaryWords(maxWords: Int): Flow<List<DictionaryWord>> {
+        return dictionaryDao.getLeastLearntWordsWithMeanings(maxWords).map { dbEntities ->
             dbEntities.map { dbEntity ->
                 dictionaryWordMapper.mapEntityToDomain(dbEntity)
             }

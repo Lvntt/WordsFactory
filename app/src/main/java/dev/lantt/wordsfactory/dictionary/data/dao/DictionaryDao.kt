@@ -45,7 +45,7 @@ interface DictionaryDao {
     fun getDictionaryWordWithMeanings(word: String): DictionaryWordWithMeanings?
 
     @Transaction
-    @Query("SELECT * FROM dictionary_words ORDER BY learningCoefficient ASC LIMIT :wordsCount")
-    fun getLeastLearntWordsWithMeanings(wordsCount: Int): Flow<List<DictionaryWordWithMeanings>>
+    @Query("SELECT * FROM dictionary_words ORDER BY learningCoefficient ASC LIMIT :maxWords")
+    fun getLeastLearntWordsWithMeanings(maxWords: Int): Flow<List<DictionaryWordWithMeanings>>
 
 }

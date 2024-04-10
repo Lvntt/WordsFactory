@@ -6,7 +6,7 @@ class GetLeastLearntWordsUseCase(
     private val dictionaryRepository: DictionaryRepository
 ) {
 
-    operator fun invoke(wordsCount: Int) =
-        dictionaryRepository.getLeastLearntDictionaryWords(wordsCount)
+    operator fun invoke(maxWords: Int) =
+        dictionaryRepository.getLeastLearntDictionaryWords(maxWords)
 
 }
