@@ -18,6 +18,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TestScreen(
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TestViewModel = koinViewModel()
 ) {
@@ -44,6 +45,7 @@ fun TestScreen(
             is TestState.Finished -> FinishTrainingScreen(
                 testStatistics = state.testStatistics,
                 onTrainAgain = viewModel::onTrainAgain,
+                onBack = onBack,
                 modifier = modifier
             )
         }
@@ -54,5 +56,5 @@ fun TestScreen(
 @Preview
 @Composable
 private fun TestScreenPreview() {
-    TestScreen()
+    TestScreen({})
 }

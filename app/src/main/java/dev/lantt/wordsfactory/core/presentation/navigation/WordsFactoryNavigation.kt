@@ -83,7 +83,11 @@ fun RootNavigation(
         }
 
         composable(WordsFactoryDestinations.TEST_QUESTION) {
-            TestScreen()
+            TestScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

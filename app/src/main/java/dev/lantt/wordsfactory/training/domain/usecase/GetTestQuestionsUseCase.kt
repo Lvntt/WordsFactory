@@ -45,10 +45,12 @@ class GetTestQuestionsUseCase {
                     .subList(0, INCORRECT_OPTIONS_COUNT)
                     .map { it.word }
 
+                val options = (incorrectOptions + word.word).shuffled()
+
                 val question = Question(
                     correctWord = word,
                     correctWordDefinition = word.meanings.random().definition.definition,
-                    options = incorrectOptions + word.word
+                    options = options
                 )
 
                 questionsList.add(question)

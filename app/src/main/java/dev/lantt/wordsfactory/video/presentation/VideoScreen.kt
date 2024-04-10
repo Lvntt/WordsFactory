@@ -17,6 +17,7 @@ fun VideoScreen(
 ) {
     val lastSavedUrl by viewModel.lastSavedUrl.collectAsStateWithLifecycle()
 
+    // TODO заблокировать возможность переходить на другие сайты вне указанного домена
     AndroidView(
         factory = { context ->
             return@AndroidView WebView(context).apply {
