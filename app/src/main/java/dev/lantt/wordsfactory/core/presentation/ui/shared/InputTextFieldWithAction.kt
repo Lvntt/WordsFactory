@@ -74,7 +74,8 @@ fun InputTextFieldWithAction(
             }
         },
         keyboardOptions = keyboardOptions,
-        visualTransformation = visualTransformation
+        visualTransformation = visualTransformation,
+        singleLine = true
     )
 }
 

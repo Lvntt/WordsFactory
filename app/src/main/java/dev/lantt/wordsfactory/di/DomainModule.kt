@@ -5,6 +5,7 @@ import dev.lantt.wordsfactory.auth.domain.usecase.RegisterUserUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.DeleteDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetAllSavedDictionaryWordsUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordUseCase
+import dev.lantt.wordsfactory.dictionary.domain.usecase.GetLeastLearntWordsUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.PlayAudioUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.SaveDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.StopAudioUseCase
@@ -49,5 +50,7 @@ fun provideDomainModule(): Module = module {
     factory { GetTestQuestionsUseCase() }
 
     factory { HandleOptionChoiceUseCase(get()) }
+
+    factory { GetLeastLearntWordsUseCase(get()) }
 
 }

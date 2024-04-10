@@ -5,7 +5,7 @@ import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.lantt.wordsfactory.dictionary.domain.usecase.GetAllSavedDictionaryWordsUseCase
+import dev.lantt.wordsfactory.dictionary.domain.usecase.GetLeastLearntWordsUseCase
 import dev.lantt.wordsfactory.training.domain.entity.Question
 import dev.lantt.wordsfactory.training.domain.usecase.GetTestQuestionsUseCase
 import dev.lantt.wordsfactory.training.domain.usecase.HandleOptionChoiceUseCase
@@ -23,7 +23,7 @@ import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
 class TestViewModel(
-    private val getAllSavedDictionaryWordsUseCase: GetAllSavedDictionaryWordsUseCase,
+    private val getLeastLearntWordsUseCase: GetLeastLearntWordsUseCase,
     private val getTestQuestionsUseCase: GetTestQuestionsUseCase,
     private val handleOptionChoiceUseCase: HandleOptionChoiceUseCase,
     private val defaultDispatcher: CoroutineDispatcher
@@ -47,8 +47,7 @@ class TestViewModel(
 
     private fun startTest() {
         viewModelScope.launch {
-            // TODO get only 10 words max
-            getAllSavedDictionaryWordsUseCase().collect {
+            getLeastLearntWordsUseCase(MAX_QUESTIONS_COUNT).collect {
                 val questions = getTestQuestionsUseCase(it)
                 _questions.update { questions }
 
@@ -130,6 +129,7 @@ class TestViewModel(
 
     private companion object {
         const val TAG = "TestViewModel"
+        const val MAX_QUESTIONS_COUNT = 10
         const val NEW_QUESTION_EMISSION_DELAY_MS = 5000L
         const val NO_CHOICE_STRING = "no_choice"
     }
