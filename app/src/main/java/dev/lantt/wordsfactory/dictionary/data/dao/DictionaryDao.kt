@@ -48,4 +48,10 @@ interface DictionaryDao {
     @Query("SELECT * FROM dictionary_words ORDER BY learningCoefficient ASC LIMIT :maxWords")
     fun getLeastLearntWordsWithMeanings(maxWords: Int): Flow<List<DictionaryWordWithMeanings>>
 
+    @Query("SELECT COUNT(*) FROM dictionary_words")
+    fun getDictionaryWordsCount(): Flow<Int>
+
+    @Query("SELECT COUNT(*) FROM dictionary_words WHERE learningCoefficient > 5")
+    fun getLearntDictionaryWordsCount(): Flow<Int>
+
 }

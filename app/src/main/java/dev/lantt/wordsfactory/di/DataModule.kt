@@ -33,12 +33,14 @@ private fun provideAuthRepository(firebaseAuth: FirebaseAuth): AuthRepository =
 private fun provideDictionaryRepository(
     dictionaryApiService: DictionaryApiService,
     dictionaryWordMapper: DictionaryWordMapper,
-    dictionaryDao: DictionaryDao
+    dictionaryDao: DictionaryDao,
+    context: Context
 ): DictionaryRepository =
     DictionaryRepositoryImpl(
         dictionaryApiService,
         dictionaryWordMapper,
-        dictionaryDao
+        dictionaryDao,
+        context
     )
 
 private fun provideAudioRepository(): AudioRepository =
@@ -76,7 +78,7 @@ fun provideDataModule(): Module = module {
 
     single { provideAuthRepository(get()) }
 
-    single { provideDictionaryRepository(get(), get(), get()) }
+    single { provideDictionaryRepository(get(), get(), get(), androidContext().applicationContext) }
 
     single { provideAudioRepository() }
 

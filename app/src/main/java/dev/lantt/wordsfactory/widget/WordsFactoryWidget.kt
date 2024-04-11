@@ -2,6 +2,8 @@ package dev.lantt.wordsfactory.widget
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,10 +32,18 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.InkWhite
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingTiny
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
+import dev.lantt.wordsfactory.dictionary.domain.repository.DictionaryRepository
+import org.koin.java.KoinJavaComponent.inject
 
 class WordsFactoryWidget : GlanceAppWidget() {
+
+    private val dictionaryRepository: DictionaryRepository by inject(DictionaryRepository::class.java)
+
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
+            val totalWords by dictionaryRepository.getDictionaryWordsCount().collectAsState(initial = 0)
+            val learntWords by dictionaryRepository.getLearntDictionaryWordsCount().collectAsState(initial = 0)
+
             Column(
                 modifier = GlanceModifier
                     .width(329.dp)
@@ -41,7 +51,11 @@ class WordsFactoryWidget : GlanceAppWidget() {
                     .cornerRadius(21.dp)
             ) {
                 WidgetTitle(title = context.getString(R.string.appName))
-                WidgetBody(context = context)
+                WidgetBody(
+                    context = context,
+                    totalWords = totalWords,
+                    learntWords = learntWords
+                )
             }
         }
     }
@@ -71,7 +85,11 @@ class WordsFactoryWidget : GlanceAppWidget() {
     }
 
     @Composable
-    fun WidgetBody(context: Context) {
+    fun WidgetBody(
+        context: Context,
+        totalWords: Int,
+        learntWords: Int
+    ) {
         Column(
             modifier = GlanceModifier
                 .fillMaxWidth()
@@ -82,14 +100,14 @@ class WordsFactoryWidget : GlanceAppWidget() {
 
             WidgetBodyElement(
                 primaryText = context.getString(R.string.myDictionary),
-                secondaryText = context.getString(R.string.wordsAmount, 0)
+                secondaryText = context.getString(R.string.wordsAmount, totalWords)
             )
 
             Spacer(modifier = GlanceModifier.height(PaddingMedium))
 
             WidgetBodyElement(
                 primaryText = context.getString(R.string.iAlreadyRemember),
-                secondaryText = context.getString(R.string.wordsAmount, 0)
+                secondaryText = context.getString(R.string.wordsAmount, learntWords)
             )
 
             Spacer(modifier = GlanceModifier.height(PaddingMedium))

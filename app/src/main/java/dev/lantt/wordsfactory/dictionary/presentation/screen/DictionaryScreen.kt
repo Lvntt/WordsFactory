@@ -62,10 +62,10 @@ fun DictionaryScreen(
         InputTextFieldWithAction(
             modifier = Modifier
                 .padding(
-                top = PaddingRegular,
-                start = PaddingMedium,
-                end = PaddingMedium
-            )
+                    top = PaddingRegular,
+                    start = PaddingMedium,
+                    end = PaddingMedium
+                )
                 .focusRequester(focusRequester),
             value = dictionaryState.query,
             onValueChange = viewModel::onQueryChange,

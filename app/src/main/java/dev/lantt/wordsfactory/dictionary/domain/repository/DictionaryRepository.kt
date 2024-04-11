@@ -17,4 +17,8 @@ interface DictionaryRepository {
 
     fun getLeastLearntDictionaryWords(maxWords: Int): Flow<List<DictionaryWord>>
 
+    fun getDictionaryWordsCount(): Flow<Int>
+
+    fun getLearntDictionaryWordsCount(): Flow<Int>
+
 }

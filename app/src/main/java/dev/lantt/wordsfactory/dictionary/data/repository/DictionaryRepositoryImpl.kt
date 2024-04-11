@@ -1,19 +1,23 @@
 package dev.lantt.wordsfactory.dictionary.data.repository
 
+import android.content.Context
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toLowerCase
+import androidx.glance.appwidget.updateAll
 import dev.lantt.wordsfactory.dictionary.data.dao.DictionaryDao
 import dev.lantt.wordsfactory.dictionary.data.mapper.DictionaryWordMapper
 import dev.lantt.wordsfactory.dictionary.data.network.DictionaryApiService
 import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
 import dev.lantt.wordsfactory.dictionary.domain.repository.DictionaryRepository
+import dev.lantt.wordsfactory.widget.WordsFactoryWidget
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DictionaryRepositoryImpl(
     private val dictionaryApiService: DictionaryApiService,
     private val dictionaryWordMapper: DictionaryWordMapper,
-    private val dictionaryDao: DictionaryDao
+    private val dictionaryDao: DictionaryDao,
+    private val context: Context
 ) : DictionaryRepository {
 
     override suspend fun getDictionaryWord(query: String): DictionaryWord {
@@ -37,6 +41,8 @@ class DictionaryRepositoryImpl(
             val meaningEntity = dictionaryWordMapper.mapDomainMeaningToMeaningEntity(meaning, word, definitionEntity)
             dictionaryDao.upsertMeaning(meaningEntity)
         }
+
+        updateWidget(context)
     }
 
     override suspend fun deleteDictionaryWord(word: String) {
@@ -54,6 +60,8 @@ class DictionaryRepositoryImpl(
     override suspend fun updateDictionaryWord(word: DictionaryWord) {
         val dictionaryWordEntity = dictionaryWordMapper.mapDomainToDictionaryWordEntity(word)
         dictionaryDao.updateDictionaryWord(dictionaryWordEntity)
+
+        updateWidget(context)
     }
 
     override fun getAllSavedDictionaryWords(): Flow<List<DictionaryWord>> {
@@ -70,6 +78,18 @@ class DictionaryRepositoryImpl(
                 dictionaryWordMapper.mapEntityToDomain(dbEntity)
             }
         }
+    }
+
+    override fun getDictionaryWordsCount(): Flow<Int> {
+        return dictionaryDao.getDictionaryWordsCount()
+    }
+
+    override fun getLearntDictionaryWordsCount(): Flow<Int> {
+        return dictionaryDao.getLearntDictionaryWordsCount()
+    }
+
+    private suspend fun updateWidget(context: Context) {
+         WordsFactoryWidget().updateAll(context)
     }
 
 }
