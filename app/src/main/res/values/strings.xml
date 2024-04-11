@@ -76,4 +76,9 @@
     // Dialog
     <string name="ok">OK</string>
 
+    // Widget
+    <string name="myDictionary">My Dictionary</string>
+    <string name="iAlreadyRemember">I already remember</string>
+    <string name="wordsAmount">%1$d words</string>
+
 </resources>

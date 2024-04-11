@@ -65,6 +65,7 @@ dependencies {
     val roomVersion = "2.6.1"
     val lottieVersion = "6.4.0"
     val dataStoreVersion = "1.0.0"
+    val glanceVersion = "1.0.0"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val koinCore = "io.insert-koin:koin-core:$koinVersion"
@@ -82,6 +83,8 @@ dependencies {
     val roomKtx = "androidx.room:room-ktx:$roomVersion"
     val lottie = "com.airbnb.android:lottie-compose:$lottieVersion"
     val dataStore = "androidx.datastore:datastore-preferences:$dataStoreVersion"
+    val glance = "androidx.glance:glance-appwidget:$glanceVersion"
+    val glanceMaterial3 = "androidx.glance:glance-material3:$glanceVersion"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -107,7 +110,9 @@ dependencies {
     implementation(roomKtx)
     implementation(lottie)
     implementation(dataStore)
-    
+    implementation(glance)
+    implementation(glanceMaterial3)
+
     annotationProcessor(roomCompiler)
     ksp(roomCompiler)
 
