@@ -95,7 +95,7 @@ class TestViewModel(
             handleOptionChoiceUseCase(question, chosenOption)
 
             _testStatistics.update {
-                if (question.correctWord.word == chosenOption) {
+                if (question.correctWord.word.capitalize(Locale.current) == chosenOption) {
                     it.copy(correctWords = it.correctWords + 1)
                 } else {
                     it.copy(incorrectWords = it.incorrectWords + 1)
