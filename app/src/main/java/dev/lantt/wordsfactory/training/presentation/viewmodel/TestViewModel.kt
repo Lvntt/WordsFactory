@@ -5,6 +5,7 @@ import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.lantt.wordsfactory.core.domain.repository.SettingsManager
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetLeastLearntWordsUseCase
 import dev.lantt.wordsfactory.training.domain.entity.Question
 import dev.lantt.wordsfactory.training.domain.usecase.GetTestQuestionsUseCase
@@ -21,11 +22,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class TestViewModel(
     private val getLeastLearntWordsUseCase: GetLeastLearntWordsUseCase,
     private val getTestQuestionsUseCase: GetTestQuestionsUseCase,
     private val handleOptionChoiceUseCase: HandleOptionChoiceUseCase,
+    private val settingsManager: SettingsManager,
     private val defaultDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
@@ -115,7 +118,12 @@ class TestViewModel(
         }
     }
 
-    private fun onFinishTraining() {
+    private suspend fun onFinishTraining() {
+        val calendar = Calendar.getInstance()
+        val currentTimeMillis = calendar.timeInMillis
+
+        settingsManager.setLastTrainingTime(currentTimeMillis)
+
         _testState.update {
             TestState.Finished(_testStatistics.value)
         }

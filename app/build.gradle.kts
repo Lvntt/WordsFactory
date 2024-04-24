@@ -66,6 +66,7 @@ dependencies {
     val lottieVersion = "6.4.0"
     val dataStoreVersion = "1.0.0"
     val glanceVersion = "1.0.0"
+    val workManagerVersion = "2.7.0"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val koinCore = "io.insert-koin:koin-core:$koinVersion"
@@ -85,11 +86,12 @@ dependencies {
     val dataStore = "androidx.datastore:datastore-preferences:$dataStoreVersion"
     val glance = "androidx.glance:glance-appwidget:$glanceVersion"
     val glanceMaterial3 = "androidx.glance:glance-material3:$glanceVersion"
+    val workManager = "androidx.work:work-runtime-ktx:$workManagerVersion"
 
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
+    implementation("androidx.activity:activity-compose:1.9.0")
+    implementation(platform("androidx.compose:compose-bom:2024.04.01"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -112,6 +114,7 @@ dependencies {
     implementation(dataStore)
     implementation(glance)
     implementation(glanceMaterial3)
+    implementation(workManager)
 
     annotationProcessor(roomCompiler)
     ksp(roomCompiler)
@@ -119,7 +122,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.03.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.04.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

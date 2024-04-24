@@ -7,9 +7,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dev.lantt.wordsfactory.core.data.datasource.SettingsDataSource
 import dev.lantt.wordsfactory.core.data.repository.FirebaseAuthRepository
-import dev.lantt.wordsfactory.core.data.repository.SettingsRepositoryImpl
+import dev.lantt.wordsfactory.core.data.repository.SettingsManagerImpl
 import dev.lantt.wordsfactory.core.domain.repository.AuthRepository
-import dev.lantt.wordsfactory.core.domain.repository.SettingsRepository
+import dev.lantt.wordsfactory.core.domain.repository.SettingsManager
 import dev.lantt.wordsfactory.dictionary.data.audio.AudioRepositoryImpl
 import dev.lantt.wordsfactory.dictionary.data.dao.DictionaryDao
 import dev.lantt.wordsfactory.dictionary.data.db.DictionaryDatabase
@@ -55,10 +55,10 @@ private fun provideVideoRepository(videoDataSource: VideoDataSource): VideoRepos
 private fun provideSettingsDataSource(context: Context): SettingsDataSource =
     SettingsDataSource(context)
 
-private fun provideSettingsRepository(
+private fun provideSettingsManager(
     settingsDataSource: SettingsDataSource
-): SettingsRepository =
-    SettingsRepositoryImpl(settingsDataSource)
+): SettingsManager =
+    SettingsManagerImpl(settingsDataSource)
 
 private fun provideDictionaryDatabase(context: Context): DictionaryDatabase =
     Room.databaseBuilder(
@@ -88,7 +88,7 @@ fun provideDataModule(): Module = module {
 
     single { provideSettingsDataSource(androidContext().applicationContext) }
 
-    single { provideSettingsRepository(get()) }
+    single { provideSettingsManager(get()) }
 
     single { provideDictionaryDatabase(androidContext().applicationContext) }
 

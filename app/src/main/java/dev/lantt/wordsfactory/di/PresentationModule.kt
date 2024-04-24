@@ -27,8 +27,8 @@ fun providePresentationModule(): Module = module {
 
     viewModel { VideoViewModel(get(), get()) }
 
-    viewModel { TrainingViewModel(get()) }
+    viewModel { TrainingViewModel(get(), get()) }
 
-    viewModel { TestViewModel(get(), get(), get(), Dispatchers.IO) }
+    viewModel { TestViewModel(get(), get(), get(), get(), Dispatchers.IO) }
 
 }

@@ -75,10 +75,19 @@
 
     // Dialog
     <string name="ok">OK</string>
+    <string name="dismiss">Dismiss</string>
 
     // Widget
     <string name="myDictionary">My Dictionary</string>
     <string name="iAlreadyRemember">I already remember</string>
     <string name="wordsAmount">%1$d words</string>
+
+    // Training Notification
+    <string name="trainingNotificationTitle">Training time!</string>
+    <string name="trainingNotificationContent">You haven\'t trained today yet. Don\'t forget to study your words!</string>
+
+    // Permission dialogs
+    <string name="notificationPermissionDialogTitle">Enable notifications</string>
+    <string name="notificationPermissionDialogDescription">If you forget to revise the words, we will remind you at 20:00.</string>
 
 </resources>

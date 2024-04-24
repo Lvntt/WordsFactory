@@ -1,5 +1,9 @@
 package dev.lantt.wordsfactory.training.presentation.screen
 
+import android.Manifest
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -26,6 +31,8 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.HeadingH4
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingLarge
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
+import dev.lantt.wordsfactory.core.presentation.util.hasNotificationPermission
+import dev.lantt.wordsfactory.training.presentation.components.NotificationPermissionDialog
 import dev.lantt.wordsfactory.training.presentation.components.StartTrainingTimerIndicator
 import dev.lantt.wordsfactory.training.presentation.event.TrainingEvent
 import dev.lantt.wordsfactory.training.presentation.state.TrainingState
@@ -38,9 +45,18 @@ fun TrainingScreen(
     modifier: Modifier = Modifier,
     viewModel: TrainingViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
+    val notificationsPermissionResultLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = {
+            viewModel.onStartTimer()
+        }
+    )
+
+    val permissionDialogState by viewModel.permissionDialogState.collectAsStateWithLifecycle()
     val trainingState by viewModel.trainingState.collectAsStateWithLifecycle()
     val savedDictionaryWords by viewModel.savedDictionaryWords.collectAsStateWithLifecycle()
-    
+
     LaunchedEffect(Unit) {
         viewModel.trainingEvents.collect { event ->
             when (event) {
@@ -94,11 +110,32 @@ fun TrainingScreen(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(bottom = PaddingMedium),
-                    onClick = viewModel::onStartTimer,
+                    onClick = {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                            !hasNotificationPermission(context) &&
+                            permissionDialogState.shouldShow
+                        ) {
+                            viewModel.onShowDialog()
+                        } else {
+                            viewModel.onStartTimer()
+                        }
+                    },
                     text = stringResource(id = R.string.start)
                 )
             }
         }
+    }
 
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && permissionDialogState.isShown) {
+        NotificationPermissionDialog(
+            onDismiss = {
+                viewModel.onDismissDialog()
+                viewModel.onStartTimer()
+            },
+            onOk = {
+                viewModel.onDismissDialog()
+                notificationsPermissionResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        )
     }
 }
