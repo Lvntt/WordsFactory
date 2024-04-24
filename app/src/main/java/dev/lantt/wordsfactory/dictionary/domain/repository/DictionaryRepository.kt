@@ -15,10 +15,12 @@ interface DictionaryRepository {
 
     fun getAllSavedDictionaryWords(): Flow<List<DictionaryWord>>
 
-    fun getLeastLearntDictionaryWords(maxWords: Int): Flow<List<DictionaryWord>>
+    suspend fun getLeastLearntDictionaryWords(maxWords: Int): List<DictionaryWord>
 
     fun getDictionaryWordsCount(): Flow<Int>
 
     fun getLearntDictionaryWordsCount(): Flow<Int>
+
+    fun getMockDictionaryWords(): List<DictionaryWord>
 
 }

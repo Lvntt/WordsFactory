@@ -6,6 +6,7 @@ import androidx.compose.ui.text.toLowerCase
 import androidx.glance.appwidget.updateAll
 import dev.lantt.wordsfactory.dictionary.data.dao.DictionaryDao
 import dev.lantt.wordsfactory.dictionary.data.mapper.DictionaryWordMapper
+import dev.lantt.wordsfactory.dictionary.data.mock.MockDictionaryWords
 import dev.lantt.wordsfactory.dictionary.data.network.DictionaryApiService
 import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
 import dev.lantt.wordsfactory.dictionary.domain.repository.DictionaryRepository
@@ -72,11 +73,9 @@ class DictionaryRepositoryImpl(
         }
     }
 
-    override fun getLeastLearntDictionaryWords(maxWords: Int): Flow<List<DictionaryWord>> {
-        return dictionaryDao.getLeastLearntWordsWithMeanings(maxWords).map { dbEntities ->
-            dbEntities.map { dbEntity ->
-                dictionaryWordMapper.mapEntityToDomain(dbEntity)
-            }
+    override suspend fun getLeastLearntDictionaryWords(maxWords: Int): List<DictionaryWord> {
+        return dictionaryDao.getLeastLearntWordsWithMeanings(maxWords).map { dbEntity ->
+            dictionaryWordMapper.mapEntityToDomain(dbEntity)
         }
     }
 
@@ -86,6 +85,10 @@ class DictionaryRepositoryImpl(
 
     override fun getLearntDictionaryWordsCount(): Flow<Int> {
         return dictionaryDao.getLearntDictionaryWordsCount()
+    }
+
+    override fun getMockDictionaryWords(): List<DictionaryWord> {
+        return MockDictionaryWords.words
     }
 
     private suspend fun updateWidget(context: Context) {

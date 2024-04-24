@@ -52,7 +52,6 @@ android {
 }
 
 dependencies {
-
     val navigationVersion = "2.5.3"
     val koinVersion = "3.3.2"
     val koinComposeVersion = "3.4.1"
@@ -67,6 +66,8 @@ dependencies {
     val dataStoreVersion = "1.0.0"
     val glanceVersion = "1.0.0"
     val workManagerVersion = "2.7.0"
+    val mockitoVersion = "5.11.0"
+    val mockitoKotlinVersion = "5.3.1"
 
     val navigationCompose = "androidx.navigation:navigation-compose:$navigationVersion"
     val koinCore = "io.insert-koin:koin-core:$koinVersion"
@@ -120,6 +121,8 @@ dependencies {
     ksp(roomCompiler)
 
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:$mockitoVersion")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2024.04.01"))

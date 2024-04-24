@@ -6,10 +6,12 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.lantt.wordsfactory.core.domain.repository.SettingsManager
-import dev.lantt.wordsfactory.dictionary.domain.usecase.GetLeastLearntWordsUseCase
+import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
 import dev.lantt.wordsfactory.training.domain.entity.Question
 import dev.lantt.wordsfactory.training.domain.usecase.GetTestQuestionsUseCase
-import dev.lantt.wordsfactory.training.domain.usecase.HandleOptionChoiceUseCase
+import dev.lantt.wordsfactory.training.domain.usecase.GetNewLearningCoefficientUseCase
+import dev.lantt.wordsfactory.training.domain.usecase.GetWordsForQuestionsUseCase
+import dev.lantt.wordsfactory.training.domain.usecase.UpdateDictionaryWordUseCase
 import dev.lantt.wordsfactory.training.presentation.state.QuestionState
 import dev.lantt.wordsfactory.training.presentation.state.TestState
 import dev.lantt.wordsfactory.training.presentation.state.TestStatistics
@@ -25,9 +27,10 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class TestViewModel(
-    private val getLeastLearntWordsUseCase: GetLeastLearntWordsUseCase,
+    private val getWordsForQuestionsUseCase: GetWordsForQuestionsUseCase,
     private val getTestQuestionsUseCase: GetTestQuestionsUseCase,
-    private val handleOptionChoiceUseCase: HandleOptionChoiceUseCase,
+    private val getNewLearningCoefficientUseCase: GetNewLearningCoefficientUseCase,
+    private val updateDictionaryWordUseCase: UpdateDictionaryWordUseCase,
     private val settingsManager: SettingsManager,
     private val defaultDispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -49,14 +52,13 @@ class TestViewModel(
     }
 
     private fun startTest() {
-        viewModelScope.launch {
-            getLeastLearntWordsUseCase(MAX_QUESTIONS_COUNT).collect {
-                val questions = getTestQuestionsUseCase(it)
-                _questions.update { questions }
+        viewModelScope.launch(defaultDispatcher) {
+            val words = getWordsForQuestionsUseCase()
+            val questions = getTestQuestionsUseCase(words)
+            _questions.update { questions }
 
-                updateCurrentQuestionJob()
-                this.coroutineContext.job.cancel()
-            }
+            updateCurrentQuestionJob()
+            this.coroutineContext.job.cancel()
         }
     }
 
@@ -81,7 +83,7 @@ class TestViewModel(
                 _questions.update { updatedQuestions }
 
                 delay(NEW_QUESTION_EMISSION_DELAY_MS)
-                handleOptionChoiceUseCase(currentQuestion, NO_CHOICE_STRING)
+                handleOptionChoice(currentQuestion.correctWord, NO_CHOICE_STRING)
                 _testStatistics.update {
                     it.copy(incorrectWords = it.incorrectWords + 1)
                 }
@@ -95,7 +97,7 @@ class TestViewModel(
         chosenOption: String
     ) {
         viewModelScope.launch(defaultDispatcher + testExceptionHandler) {
-            handleOptionChoiceUseCase(question, chosenOption)
+            handleOptionChoice(question.correctWord, chosenOption)
 
             _testStatistics.update {
                 if (question.correctWord.word.capitalize(Locale.current) == chosenOption) {
@@ -118,6 +120,11 @@ class TestViewModel(
         }
     }
 
+    private suspend fun handleOptionChoice(correctWord: DictionaryWord, chosenOption: String) {
+        val newLearningCoefficient = getNewLearningCoefficientUseCase(correctWord, chosenOption)
+        updateDictionaryWordUseCase(correctWord.copy(learningCoefficient = newLearningCoefficient))
+    }
+
     private suspend fun onFinishTraining() {
         val calendar = Calendar.getInstance()
         val currentTimeMillis = calendar.timeInMillis
@@ -137,7 +144,6 @@ class TestViewModel(
 
     private companion object {
         const val TAG = "TestViewModel"
-        const val MAX_QUESTIONS_COUNT = 10
         const val NEW_QUESTION_EMISSION_DELAY_MS = 5000L
         const val NO_CHOICE_STRING = "no_choice"
     }

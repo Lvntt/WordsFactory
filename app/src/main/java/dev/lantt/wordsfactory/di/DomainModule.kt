@@ -5,13 +5,14 @@ import dev.lantt.wordsfactory.auth.domain.usecase.RegisterUserUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.DeleteDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetAllSavedDictionaryWordsUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordUseCase
-import dev.lantt.wordsfactory.dictionary.domain.usecase.GetLeastLearntWordsUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.PlayAudioUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.SaveDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.StopAudioUseCase
 import dev.lantt.wordsfactory.splash.domain.CheckUserLoginUseCase
 import dev.lantt.wordsfactory.training.domain.usecase.GetTestQuestionsUseCase
-import dev.lantt.wordsfactory.training.domain.usecase.HandleOptionChoiceUseCase
+import dev.lantt.wordsfactory.training.domain.usecase.GetNewLearningCoefficientUseCase
+import dev.lantt.wordsfactory.training.domain.usecase.GetWordsForQuestionsUseCase
+import dev.lantt.wordsfactory.training.domain.usecase.UpdateDictionaryWordUseCase
 import dev.lantt.wordsfactory.video.domain.usecase.FetchLastSavedUrlUseCase
 import dev.lantt.wordsfactory.video.domain.usecase.SaveUrlToLocalStorageUseCase
 import org.koin.core.module.Module
@@ -43,8 +44,10 @@ fun provideDomainModule(): Module = module {
 
     factory { GetTestQuestionsUseCase() }
 
-    factory { HandleOptionChoiceUseCase(get()) }
+    factory { GetNewLearningCoefficientUseCase() }
 
-    factory { GetLeastLearntWordsUseCase(get()) }
+    factory { GetWordsForQuestionsUseCase(get()) }
+
+    factory { UpdateDictionaryWordUseCase(get()) }
 
 }
