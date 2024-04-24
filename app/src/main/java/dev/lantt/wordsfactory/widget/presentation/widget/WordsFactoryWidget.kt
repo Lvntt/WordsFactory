@@ -20,19 +20,21 @@ import androidx.glance.layout.width
 import dev.lantt.wordsfactory.R
 import dev.lantt.wordsfactory.core.presentation.ui.theme.InkWhite
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
-import dev.lantt.wordsfactory.dictionary.domain.repository.DictionaryRepository
+import dev.lantt.wordsfactory.widget.domain.usecase.GetDictionaryWordsCountUseCase
+import dev.lantt.wordsfactory.widget.domain.usecase.GetLearntDictionaryWordsCountUseCase
 import dev.lantt.wordsfactory.widget.presentation.components.WidgetBodyElement
 import dev.lantt.wordsfactory.widget.presentation.components.WidgetTitle
 import org.koin.java.KoinJavaComponent.inject
 
 class WordsFactoryWidget : GlanceAppWidget() {
 
-    private val dictionaryRepository: DictionaryRepository by inject(DictionaryRepository::class.java)
+    private val getDictionaryWordsCountUseCase: GetDictionaryWordsCountUseCase by inject(GetDictionaryWordsCountUseCase::class.java)
+    private val getLearntDictionaryWordsCountUseCase: GetLearntDictionaryWordsCountUseCase by inject(GetLearntDictionaryWordsCountUseCase::class.java)
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
-            val totalWords by dictionaryRepository.getDictionaryWordsCount().collectAsState(initial = 0)
-            val learntWords by dictionaryRepository.getLearntDictionaryWordsCount().collectAsState(initial = 0)
+            val totalWords by getDictionaryWordsCountUseCase().collectAsState(initial = 0)
+            val learntWords by getLearntDictionaryWordsCountUseCase().collectAsState(initial = 0)
 
             Column(
                 modifier = GlanceModifier

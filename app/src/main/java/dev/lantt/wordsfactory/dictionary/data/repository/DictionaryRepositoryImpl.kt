@@ -56,6 +56,8 @@ class DictionaryRepositoryImpl(
                 dictionaryDao.deleteMeaning(meaning)
             }
         }
+
+        updateWidget(context)
     }
 
     override suspend fun updateDictionaryWord(word: DictionaryWord) {

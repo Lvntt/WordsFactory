@@ -15,6 +15,8 @@ import dev.lantt.wordsfactory.training.domain.usecase.GetWordsForQuestionsUseCas
 import dev.lantt.wordsfactory.training.domain.usecase.UpdateDictionaryWordUseCase
 import dev.lantt.wordsfactory.video.domain.usecase.FetchLastSavedUrlUseCase
 import dev.lantt.wordsfactory.video.domain.usecase.SaveUrlToLocalStorageUseCase
+import dev.lantt.wordsfactory.widget.domain.usecase.GetDictionaryWordsCountUseCase
+import dev.lantt.wordsfactory.widget.domain.usecase.GetLearntDictionaryWordsCountUseCase
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -49,5 +51,9 @@ fun provideDomainModule(): Module = module {
     factory { GetWordsForQuestionsUseCase(get()) }
 
     factory { UpdateDictionaryWordUseCase(get()) }
+
+    factory { GetDictionaryWordsCountUseCase(get()) }
+
+    factory { GetLearntDictionaryWordsCountUseCase(get()) }
 
 }
