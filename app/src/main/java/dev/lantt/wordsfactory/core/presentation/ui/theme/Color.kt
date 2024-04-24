@@ -32,3 +32,5 @@ val TestOptionSelectedBorder = Color(0xFFF3705A)
 
 val TestOptionUnselectedBackground = Color(0xFFFFFFFF)
 val TestOptionSelectedBackground = Color(0xFFFFF5EE)
+
+val GradientEnd = Color(0xFFF29F3F)

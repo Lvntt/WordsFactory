@@ -3,17 +3,16 @@ package dev.lantt.wordsfactory.training.presentation.components
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
+import dev.lantt.wordsfactory.core.presentation.ui.theme.ErrorColor
+import dev.lantt.wordsfactory.core.presentation.ui.theme.GradientEnd
 import dev.lantt.wordsfactory.core.presentation.ui.theme.InkGray
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
 
@@ -27,14 +26,14 @@ fun OngoingTrainingTimerIndicator() {
         animationSpec = tween(5000, easing = LinearEasing),
         label = "progress_animation",
     )
-
-    LinearProgressIndicator(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(5.dp),
-        progress = { progressAnimation },
-        color = PrimaryColor,
-        trackColor = InkGray
+    
+    GradientLinearProgressIndicator(
+        backgroundColor = InkGray,
+        foregroundColor = Brush.linearGradient(
+            colors = listOf(ErrorColor, PrimaryColor, GradientEnd)
+        ),
+        progress = progressAnimation,
+        height = 5.dp
     )
 
     LaunchedEffect(Unit) {
