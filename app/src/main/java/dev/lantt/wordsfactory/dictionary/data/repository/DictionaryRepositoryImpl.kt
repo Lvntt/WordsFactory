@@ -10,7 +10,7 @@ import dev.lantt.wordsfactory.dictionary.data.mock.MockDictionaryWords
 import dev.lantt.wordsfactory.dictionary.data.network.DictionaryApiService
 import dev.lantt.wordsfactory.dictionary.domain.entity.DictionaryWord
 import dev.lantt.wordsfactory.dictionary.domain.repository.DictionaryRepository
-import dev.lantt.wordsfactory.widget.WordsFactoryWidget
+import dev.lantt.wordsfactory.widget.presentation.widget.WordsFactoryWidget
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

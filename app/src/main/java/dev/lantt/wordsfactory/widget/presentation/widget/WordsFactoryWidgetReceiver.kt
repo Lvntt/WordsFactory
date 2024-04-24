@@ -1,4 +1,4 @@
-package dev.lantt.wordsfactory.widget
+package dev.lantt.wordsfactory.widget.presentation.widget
 
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
