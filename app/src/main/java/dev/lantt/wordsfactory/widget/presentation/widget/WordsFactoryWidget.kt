@@ -39,7 +39,6 @@ class WordsFactoryWidget : GlanceAppWidget() {
             Column(
                 modifier = GlanceModifier
                     .width(329.dp)
-                    .height(155.dp)
                     .cornerRadius(21.dp)
             ) {
                 WidgetTitle(title = context.getString(R.string.appName))
