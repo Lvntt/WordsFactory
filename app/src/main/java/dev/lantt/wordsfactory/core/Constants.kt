@@ -2,7 +2,7 @@ package dev.lantt.wordsfactory.core
 
 object Constants {
     const val DICTIONARY_BASE_URL = "https://api.dictionaryapi.dev/api/v2/"
-    const val LEARN_ENGLISH_URL = "https://test-english.com/"
+    const val LEARN_ENGLISH_BASE_URL = "https://learnenglish.com"
 
     const val EN_DICTIONARY_URL = "entries/en"
 

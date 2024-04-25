@@ -7,7 +7,6 @@ import dev.lantt.wordsfactory.onboarding.presentation.viewmodel.OnboardingViewMo
 import dev.lantt.wordsfactory.splash.presentation.SplashViewModel
 import dev.lantt.wordsfactory.training.presentation.viewmodel.TestViewModel
 import dev.lantt.wordsfactory.training.presentation.viewmodel.TrainingViewModel
-import dev.lantt.wordsfactory.video.presentation.VideoViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -24,8 +23,6 @@ fun providePresentationModule(): Module = module {
     viewModel { LoginViewModel(get(), Dispatchers.IO) }
 
     viewModel { DictionaryViewModel(get(), get(), get(), get(), get(), Dispatchers.IO) }
-
-    viewModel { VideoViewModel(get(), get()) }
 
     viewModel { TrainingViewModel(get(), get()) }
 
