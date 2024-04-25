@@ -1,8 +1,6 @@
 package dev.lantt.wordsfactory.training.presentation.components
 
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,12 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ErrorColor
@@ -35,26 +35,28 @@ fun StartTrainingTimerIndicator(
     modifier: Modifier = Modifier
 ) {
     var timerIndicatorState by remember { mutableStateOf<TimerIndicatorState>(TimerIndicatorState.FiveSeconds) }
+    var progress by remember { mutableFloatStateOf(0f) }
 
-    val infiniteTransition = rememberInfiniteTransition(label = "infinite_transition")
-    val progress by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(animation = tween(1000)),
-        label = "progress_animation"
+    val timerStates = listOf(
+        TimerIndicatorState.FourSeconds,
+        TimerIndicatorState.ThreeSeconds,
+        TimerIndicatorState.TwoSeconds,
+        TimerIndicatorState.OneSecond,
+        TimerIndicatorState.GoState
     )
 
     LaunchedEffect(Unit) {
-        delay(1000)
-        timerIndicatorState = TimerIndicatorState.FourSeconds
-        delay(1000)
-        timerIndicatorState = TimerIndicatorState.ThreeSeconds
-        delay(1000)
-        timerIndicatorState = TimerIndicatorState.TwoSeconds
-        delay(1000)
-        timerIndicatorState = TimerIndicatorState.OneSecond
-        delay(1000)
-        timerIndicatorState = TimerIndicatorState.GoState
+        for (state in timerStates) {
+            progress = 0f
+            animate(
+                initialValue = 0f,
+                targetValue = 1f,
+                animationSpec = tween(1000)
+            ) { value, _ ->
+                progress = value
+            }
+            timerIndicatorState = state
+        }
         delay(1000)
         onEndTimer()
     }
@@ -96,7 +98,8 @@ fun StartTrainingTimerIndicator(
                 modifier = Modifier.size(140.dp),
                 color = timerIndicatorColor,
                 strokeWidth = 7.dp,
-                trackColor = timerTrackColor
+                trackColor = timerTrackColor,
+                strokeCap = StrokeCap.Round
             )
         }
 
