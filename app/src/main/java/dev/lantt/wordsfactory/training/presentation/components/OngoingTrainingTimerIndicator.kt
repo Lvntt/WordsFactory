@@ -15,6 +15,7 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.ErrorColor
 import dev.lantt.wordsfactory.core.presentation.ui.theme.GradientEnd
 import dev.lantt.wordsfactory.core.presentation.ui.theme.InkGray
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
+import dev.lantt.wordsfactory.training.common.Constants.QUESTION_DURATION_MILLIS
 
 @Composable
 fun OngoingTrainingTimerIndicator() {
@@ -22,8 +23,7 @@ fun OngoingTrainingTimerIndicator() {
 
     val progressAnimation by animateFloatAsState(
         targetValue = progress,
-        // TODO 5000 to constants
-        animationSpec = tween(5000, easing = LinearEasing),
+        animationSpec = tween(QUESTION_DURATION_MILLIS, easing = LinearEasing),
         label = "progress_animation",
     )
     
