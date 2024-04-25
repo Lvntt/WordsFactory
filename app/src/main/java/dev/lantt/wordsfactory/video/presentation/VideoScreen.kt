@@ -6,7 +6,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
-import dev.lantt.wordsfactory.core.Constants.LEARN_ENGLISH_BASE_URL
+import dev.lantt.wordsfactory.core.Constants.LEARN_ENGLISH_URL
 
 @Composable
 fun VideoScreen() {
@@ -18,11 +18,11 @@ fun VideoScreen() {
                         view: WebView?,
                         request: WebResourceRequest?
                     ): Boolean {
-                        return !request?.url.toString().startsWith(LEARN_ENGLISH_BASE_URL)
+                        return !request?.url.toString().startsWith(LEARN_ENGLISH_URL)
                     }
                 }
 
-                loadUrl(LEARN_ENGLISH_BASE_URL)
+                loadUrl(LEARN_ENGLISH_URL)
 
                 @SuppressLint("SetJavaScriptEnabled")
                 settings.javaScriptEnabled = true
