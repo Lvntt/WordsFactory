@@ -22,6 +22,7 @@ import dev.lantt.wordsfactory.core.presentation.ui.theme.InkGray
 import dev.lantt.wordsfactory.core.presentation.ui.theme.InkWhite
 import dev.lantt.wordsfactory.core.presentation.ui.theme.ParagraphMedium
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PrimaryColor
+import dev.lantt.wordsfactory.core.presentation.util.NoRippleInteractionSource
 
 @Composable
 fun BottomNavigationBar(
@@ -79,6 +80,7 @@ fun BottomNavigationBar(
                     unselectedIconColor = InkGray,
                     unselectedTextColor = InkGray
                 ),
+                interactionSource = NoRippleInteractionSource()
             )
         }
     }
