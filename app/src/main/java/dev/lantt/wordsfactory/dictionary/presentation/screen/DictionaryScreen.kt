@@ -35,6 +35,7 @@ import dev.lantt.wordsfactory.dictionary.presentation.components.DictionaryPlace
 import dev.lantt.wordsfactory.dictionary.presentation.components.DictionaryWordContent
 import dev.lantt.wordsfactory.dictionary.presentation.components.ErrorContent
 import dev.lantt.wordsfactory.dictionary.presentation.components.LottieLoading
+import dev.lantt.wordsfactory.dictionary.presentation.components.NotFoundErrorContent
 import dev.lantt.wordsfactory.dictionary.presentation.state.DictionaryUiState
 import dev.lantt.wordsfactory.dictionary.presentation.viewmodel.DictionaryViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -104,8 +105,10 @@ fun DictionaryScreen(
                         .align(Alignment.CenterHorizontally)
                 )
             }
+            DictionaryUiState.NotFound -> {
+                NotFoundErrorContent()
+            }
             is DictionaryUiState.Error -> {
-                // TODO separate not found error from others
                 ErrorContent()
                 Log.e("DictionaryScreen", (uiState as DictionaryUiState.Error).message.toString())
             }

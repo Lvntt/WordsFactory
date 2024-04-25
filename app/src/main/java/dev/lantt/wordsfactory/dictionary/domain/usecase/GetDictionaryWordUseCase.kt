@@ -7,7 +7,7 @@ class GetDictionaryWordUseCase(
     private val dictionaryRepository: DictionaryRepository
 ) {
 
-    suspend operator fun invoke(query: String): DictionaryWord
+    suspend operator fun invoke(query: String): DictionaryWord?
         = dictionaryRepository.getDictionaryWord(query)
 
 }

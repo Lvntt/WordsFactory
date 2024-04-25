@@ -7,10 +7,9 @@ import dev.lantt.wordsfactory.dictionary.domain.usecase.GetAllSavedDictionaryWor
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.PlayAudioUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.SaveDictionaryWordUseCase
-import dev.lantt.wordsfactory.dictionary.domain.usecase.StopAudioUseCase
 import dev.lantt.wordsfactory.splash.domain.CheckUserLoginUseCase
-import dev.lantt.wordsfactory.training.domain.usecase.GetTestQuestionsUseCase
 import dev.lantt.wordsfactory.training.domain.usecase.GetNewLearningCoefficientUseCase
+import dev.lantt.wordsfactory.training.domain.usecase.GetTestQuestionsUseCase
 import dev.lantt.wordsfactory.training.domain.usecase.GetWordsForQuestionsUseCase
 import dev.lantt.wordsfactory.training.domain.usecase.UpdateDictionaryWordUseCase
 import dev.lantt.wordsfactory.video.domain.usecase.FetchLastSavedUrlUseCase
@@ -31,8 +30,6 @@ fun provideDomainModule(): Module = module {
     factory { SaveDictionaryWordUseCase(get()) }
 
     factory { PlayAudioUseCase(get()) }
-
-    factory { StopAudioUseCase(get()) }
 
     factory { FetchLastSavedUrlUseCase(get()) }
 

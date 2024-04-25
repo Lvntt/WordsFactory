@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface DictionaryRepository {
 
-    suspend fun getDictionaryWord(query: String): DictionaryWord
+    suspend fun getDictionaryWord(query: String): DictionaryWord?
 
     suspend fun saveDictionaryWord(word: DictionaryWord)
 

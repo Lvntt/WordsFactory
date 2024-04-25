@@ -8,6 +8,8 @@ sealed interface DictionaryUiState {
 
     data object Loading : DictionaryUiState
 
+    data object NotFound : DictionaryUiState
+
     data class Error(val message: String?) : DictionaryUiState
 
     data class Success(val word: DictionaryWord) : DictionaryUiState

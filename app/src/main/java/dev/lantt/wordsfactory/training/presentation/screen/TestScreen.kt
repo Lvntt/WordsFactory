@@ -3,13 +3,16 @@ package dev.lantt.wordsfactory.training.presentation.screen
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dev.lantt.wordsfactory.dictionary.presentation.components.LottieLoading
 import dev.lantt.wordsfactory.training.presentation.components.FinishTrainingScreen
 import dev.lantt.wordsfactory.training.presentation.components.TestQuestionScreen
 import dev.lantt.wordsfactory.training.presentation.state.TestState
@@ -34,7 +37,11 @@ fun TestScreen(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    CircularProgressIndicator()
+                    LottieLoading(
+                        modifier = Modifier
+                            .size(100.dp)
+                            .fillMaxWidth()
+                    )
                 }
             }
             is TestState.Ongoing -> TestQuestionScreen(

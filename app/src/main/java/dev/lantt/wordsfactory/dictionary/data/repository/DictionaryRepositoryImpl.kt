@@ -13,6 +13,7 @@ import dev.lantt.wordsfactory.dictionary.domain.repository.DictionaryRepository
 import dev.lantt.wordsfactory.widget.presentation.widget.WordsFactoryWidget
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import retrofit2.HttpException
 
 class DictionaryRepositoryImpl(
     private val dictionaryApiService: DictionaryApiService,
@@ -21,14 +22,21 @@ class DictionaryRepositoryImpl(
     private val context: Context
 ) : DictionaryRepository {
 
-    override suspend fun getDictionaryWord(query: String): DictionaryWord {
+    override suspend fun getDictionaryWord(query: String): DictionaryWord? {
         val cachedDictionaryWord = dictionaryDao.getDictionaryWordWithMeanings(query.toLowerCase(Locale.current))
         if (cachedDictionaryWord != null) {
             return dictionaryWordMapper.mapEntityToDomain(cachedDictionaryWord)
         }
 
-        val apiResult = dictionaryApiService.getDictionaryWord(query)
-        return dictionaryWordMapper.mapDtoToDomain(apiResult[0])
+        try {
+            val apiResult = dictionaryApiService.getDictionaryWord(query)
+            return dictionaryWordMapper.mapDtoToDomain(apiResult[0])
+        } catch (e: HttpException) {
+            if (e.code() == 404) {
+                return null
+            }
+            throw e
+        }
     }
 
     override suspend fun saveDictionaryWord(word: DictionaryWord) {

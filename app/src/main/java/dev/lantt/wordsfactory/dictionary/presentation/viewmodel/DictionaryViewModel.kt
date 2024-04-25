@@ -6,7 +6,6 @@ import dev.lantt.wordsfactory.dictionary.domain.usecase.DeleteDictionaryWordUseC
 import dev.lantt.wordsfactory.dictionary.domain.usecase.GetDictionaryWordUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.PlayAudioUseCase
 import dev.lantt.wordsfactory.dictionary.domain.usecase.SaveDictionaryWordUseCase
-import dev.lantt.wordsfactory.dictionary.domain.usecase.StopAudioUseCase
 import dev.lantt.wordsfactory.dictionary.presentation.state.DictionaryState
 import dev.lantt.wordsfactory.dictionary.presentation.state.DictionaryUiState
 import kotlinx.coroutines.CoroutineDispatcher
@@ -21,7 +20,6 @@ class DictionaryViewModel(
     private val saveDictionaryWordUseCase: SaveDictionaryWordUseCase,
     private val deleteDictionaryWordUseCase: DeleteDictionaryWordUseCase,
     private val playAudioUseCase: PlayAudioUseCase,
-    private val stopAudioUseCase: StopAudioUseCase,
     private val defaultDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
@@ -56,11 +54,17 @@ class DictionaryViewModel(
     fun onSearch() {
         _dictionaryUiState.update { DictionaryUiState.Loading }
         viewModelScope.launch(defaultDispatcher + dictionaryExceptionHandler) {
-            _dictionaryUiState.update {
-                DictionaryUiState.Success(
-                    getDictionaryWordUseCase(_dictionaryState.value.query)
-                )
+            val dictionaryWord = getDictionaryWordUseCase(_dictionaryState.value.query)
+            if (dictionaryWord == null) {
+                _dictionaryUiState.update {
+                    DictionaryUiState.NotFound
+                }
+            } else {
+                _dictionaryUiState.update {
+                    DictionaryUiState.Success(dictionaryWord)
+                }
             }
+
             _dictionaryState.update {
                 it.copy(canClearQuery = true)
             }
@@ -91,10 +95,6 @@ class DictionaryViewModel(
         viewModelScope.launch(defaultDispatcher + dictionaryExceptionHandler) {
             playAudioUseCase(audioUrl)
         }
-    }
-
-    fun onStopAudio() {
-        stopAudioUseCase()
     }
 
 }

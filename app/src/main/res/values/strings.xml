@@ -25,6 +25,7 @@
     <string name="invalidInputDescription">Something is wrong with your registration data, and we could not register you. Try again!</string>
     <string name="connectionError">Connection error</string>
     <string name="connectionErrorDescription">Oops! Connection error.\nConsider trying again!</string>
+    <string name="notFoundErrorDescription">Oops! Couldn\'t find this word in the dictionary. Did you misspell it?</string>
     <string name="invalidCredentials">Invalid credentials</string>
     <string name="invalidCredentialsDescription">Invalid email or password. Try again!</string>
 
