@@ -3,6 +3,7 @@ package dev.lantt.wordsfactory.dictionary.presentation.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import dev.lantt.wordsfactory.R
+import dev.lantt.wordsfactory.core.presentation.ui.theme.ButtonHeightRegular
 import dev.lantt.wordsfactory.core.presentation.ui.theme.HeadingH4
 import dev.lantt.wordsfactory.core.presentation.ui.theme.Padding5
 import dev.lantt.wordsfactory.core.presentation.ui.theme.PaddingMedium
@@ -104,7 +106,11 @@ fun DictionaryWordContent(
 
         Spacer(modifier = Modifier.height(11.dp))
 
-        LazyColumn {
+        LazyColumn(
+            contentPadding = PaddingValues(
+                bottom = PaddingSmall + ButtonHeightRegular
+            )
+        ) {
             items(word.meanings) { meaning ->
                 WordMeaning(meaning = meaning)
 

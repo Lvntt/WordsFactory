@@ -3,6 +3,7 @@ package dev.lantt.wordsfactory.dictionary.presentation.screen
 import android.util.Log
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -58,8 +59,6 @@ fun DictionaryScreen(
                 focusManager.clearFocus()
             }
     ) {
-        val canClearQuery = uiState is DictionaryUiState.Success && dictionaryState.canClearQuery
-
         InputTextFieldWithAction(
             modifier = Modifier
                 .padding(
@@ -70,12 +69,12 @@ fun DictionaryScreen(
                 .focusRequester(focusRequester),
             value = dictionaryState.query,
             onValueChange = viewModel::onQueryChange,
-            trailingIcon = if (canClearQuery)
+            trailingIcon = if (dictionaryState.canClearQuery)
                 ImageVector.vectorResource(id = R.drawable.ic_close) else
                 ImageVector.vectorResource(id = R.drawable.ic_search),
             trailingIconDescription = stringResource(id = R.string.search),
             onTrailingIconClick = {
-                if (canClearQuery) {
+                if (dictionaryState.canClearQuery) {
                     viewModel.onClearQuery()
                     focusRequester.requestFocus()
                 } else {
@@ -120,6 +119,14 @@ fun DictionaryScreen(
             }
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+    }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom
+    ) {
         Spacer(modifier = Modifier.weight(1f))
 
         if (uiState is DictionaryUiState.Success) {
