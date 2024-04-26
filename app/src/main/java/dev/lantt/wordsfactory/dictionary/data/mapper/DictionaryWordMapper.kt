@@ -92,7 +92,7 @@ class DictionaryWordMapper {
 
     private fun DictionaryWordDto.getPhoneticAudio(): String? {
         val phoneticAudio = phonetics.firstOrNull {
-            it.audio != null
+            !it.audio.isNullOrBlank()
         }
 
         return phoneticAudio?.audio
