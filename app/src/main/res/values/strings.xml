@@ -54,6 +54,9 @@
     <string name="dictionaryWordsTitleLast">words\nin your Dictionary.</string>
     <string name="trainingQuestion">Start the Training?</string>
     <string name="start">Start</string>
+    <string name="dictionaryNoWordsFirst">There are</string>
+    <string name="noWords">no words</string>
+    <string name="dictionaryNoWordsLast">in your Dictionary yet.</string>
 
     // Training test question
     <string name="wordsProgress">%1$s of %2$s</string>

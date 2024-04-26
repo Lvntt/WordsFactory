@@ -74,20 +74,37 @@ fun TrainingScreen(
     ) {
         Spacer(modifier = Modifier.weight(1f))
 
-        val dictionaryWordsTitle = buildAnnotatedString {
-            append(stringResource(id = R.string.dictionaryWordsTitleFirst))
-            withStyle(style = SpanStyle(color = PrimaryColor)) {
-                append(" ${savedDictionaryWords.size} ")
+        if (savedDictionaryWords.isEmpty()) {
+            val dictionaryWordsTitle = buildAnnotatedString {
+                append(stringResource(id = R.string.dictionaryNoWordsFirst))
+                withStyle(style = SpanStyle(color = PrimaryColor)) {
+                    append(" ${stringResource(id = R.string.noWords)} ")
+                }
+                append(stringResource(id = R.string.dictionaryNoWordsLast))
             }
-            append(stringResource(id = R.string.dictionaryWordsTitleLast))
-        }
 
-        Text(
-            text = dictionaryWordsTitle,
-            style = HeadingH4,
-            color = Color.Black,
-            textAlign = TextAlign.Center
-        )
+            Text(
+                text = dictionaryWordsTitle,
+                style = HeadingH4,
+                color = Color.Black,
+                textAlign = TextAlign.Center
+            )
+        } else {
+            val dictionaryWordsTitle = buildAnnotatedString {
+                append(stringResource(id = R.string.dictionaryWordsTitleFirst))
+                withStyle(style = SpanStyle(color = PrimaryColor)) {
+                    append(" ${savedDictionaryWords.size} ")
+                }
+                append(stringResource(id = R.string.dictionaryWordsTitleLast))
+            }
+
+            Text(
+                text = dictionaryWordsTitle,
+                style = HeadingH4,
+                color = Color.Black,
+                textAlign = TextAlign.Center
+            )
+        }
 
         Spacer(modifier = Modifier.height(PaddingLarge))
 
